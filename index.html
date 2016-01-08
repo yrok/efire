@@ -1,0 +1,126 @@
+<!Doctype HTML>
+<html lang=zh-cn>
+	<head>
+		<meta charset="UTF-8"></meta>
+		<style>
+			body div{
+				text-align:center;
+			}
+			#myCanvas{
+				display:inline-block;
+			}
+			h1{
+				color:blue;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<p><h1>灯具标志图</h1></p>
+			
+			<canvas id="myCanvas" width="970" height="380" style="border:2px solid #000000;">
+				您的浏览器不支持 HTML5 canvas 标签。
+			</canvas>
+		</div>
+		<div>
+			<button onClick=rectBorder();>Rect</button>
+			<button onClick=arrow();>Arrow</button>
+			<button onClick=clear();>Clear</button>
+			<button onClick=savectx();>Save</button>
+		</div>
+		
+		<script>
+			var c=document.getElementById("myCanvas");
+			var ctx=c.getContext("2d");
+			ctx.lineWidth=2;
+			var num=1;
+			//设置倾角15度，然后计算出弧度
+			var ang=(15*2*Math.PI)/360;
+			//report the mouse position on click
+			c.addEventListener("click", 
+					function (evt) {
+					var mousePos = getMousePos(c, evt);
+					//alert(mousePos.x +',' + mousePos.y);
+					var x=Math.floor(mousePos.x);
+					var y=Math.floor(mousePos.y);
+					
+					
+					ctx.lineWidth=1;
+					ctx.moveTo(Math.floor(mousePos.x),Math.floor(mousePos.y))
+					
+					//确定引线方向
+					if((y-190)<0){
+						ctx.lineTo((Math.tan(ang)*(y-30)+x),30);
+						ctx.lineTo(((Math.tan(ang)*(y-30)+x)+15),30);
+						//设置文字，横下上方
+						ctx.textBaseline="Bottom";
+						ctx.fillText(num,(Math.tan(ang)*(y-30)+x+3),28);
+					
+					}else{
+						ctx.lineTo((Math.tan(ang)*(350-y)+x),350);
+						ctx.lineTo(((Math.tan(ang)*(350-y)+x)+15),350);
+						//设置文字，横线下方
+						ctx.textBaseline="Top";
+						ctx.fillText(num,(Math.tan(ang)*(350-y)+x+3),348);
+						
+						console.log((Math.tan(ang)*(y-30)+x));
+						console.log((Math.tan(ang)*(y-30)+x)+15);
+						
+					}
+					//console.log(Math.tan(45*2*Math.PI/360));
+					//console.log(Math.tan(ang)*(y-30),350);
+					console.log(num++)
+					console.log(Math.floor(mousePos.x),Math.floor(mousePos.y));
+					ctx.stroke();
+				}
+				
+			, true);
+			
+
+			//Get Mouse Position
+            function getMousePos(c, evt) {
+			var rect = c.getBoundingClientRect();
+			return {
+				x: evt.clientX - rect.left * (c.width / rect.width),
+				y: evt.clientY - rect.top * (c.height / rect.height)
+				}
+			}
+			
+			
+			function rectBorder(){
+				ctx.rect(40,40,890,300);
+			ctx.stroke();
+			}
+			
+			
+			function arrow(){
+				ctx.moveTo(54,150);
+				ctx.lineTo(130,90);
+				ctx.lineTo(188,90);
+				ctx.lineTo(134,134);
+				ctx.lineTo(280,134);
+				ctx.lineTo(280,166);
+				ctx.lineTo(134,166);
+				ctx.lineTo(188,210);
+				ctx.lineTo(130,210);
+				ctx.lineTo(54,150);
+				ctx.stroke();
+			}
+			
+			function clear(){
+				var clr=document.getElementById(myCanvas);
+				var cleanr=clr.getContext("2d");
+				alert("clear");
+				clr.clearRect(10,10,300,300);
+				
+			}
+			
+			function savectx(){
+				save()
+			}
+		</script>
+		<script src="canvas2Image.js"></script>
+	</body>
+
+
+</html>
