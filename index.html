@@ -12,6 +12,9 @@
 			h1{
 				color:blue;
 			}
+			.btn-box{
+				margin-top:20px;
+			}
 		</style>
 	</head>
 	<body>
@@ -22,9 +25,11 @@
 				您的浏览器不支持 HTML5 canvas 标签。
 			</canvas>
 		</div>
-		<div>
+		<div class="btm-box">
 			<button onClick=rectBorder();>Rect</button>
-			<button onClick=arrow();>Arrow</button>
+			<button onClick=arrow();>LeftArrow</button>
+			<button onClick=rightArrow();>RightArrow</button>
+			<button onClick=b1Sign();>B1</button>
 			<button onClick=clear();>Clear</button>
 			<button onClick=savectx();>Save</button>
 		</div>
@@ -57,19 +62,19 @@
 						ctx.fillText(num,(Math.tan(ang)*(y-30)+x+3),28);
 					
 					}else{
-						ctx.lineTo((Math.tan(ang)*(350-y)+x),350);
-						ctx.lineTo(((Math.tan(ang)*(350-y)+x)+15),350);
+						ctx.lineTo((Math.tan(ang)*(350-y)+x),353);
+						ctx.lineTo(((Math.tan(ang)*(350-y)+x)+15),353);
 						//设置文字，横线下方
 						ctx.textBaseline="Top";
-						ctx.fillText(num,(Math.tan(ang)*(350-y)+x+3),348);
+						ctx.fillText(num,(Math.tan(ang)*(350-y)+x+3),351);
 						
-						console.log((Math.tan(ang)*(y-30)+x));
-						console.log((Math.tan(ang)*(y-30)+x)+15);
+						//console.log((Math.tan(ang)*(y-30)+x));
+						//console.log((Math.tan(ang)*(y-30)+x)+15);
 						
 					}
 					//console.log(Math.tan(45*2*Math.PI/360));
 					//console.log(Math.tan(ang)*(y-30),350);
-					console.log(num++)
+					num++;
 					console.log(Math.floor(mousePos.x),Math.floor(mousePos.y));
 					ctx.stroke();
 				}
@@ -94,18 +99,71 @@
 			
 			
 			function arrow(){
-				ctx.moveTo(54,150);
-				ctx.lineTo(130,90);
-				ctx.lineTo(188,90);
-				ctx.lineTo(134,134);
-				ctx.lineTo(280,134);
-				ctx.lineTo(280,166);
-				ctx.lineTo(134,166);
-				ctx.lineTo(188,210);
-				ctx.lineTo(130,210);
-				ctx.lineTo(54,150);
+				ctx.moveTo(54,190);
+				ctx.lineTo(130,130);
+				ctx.lineTo(188,130);
+				ctx.lineTo(134,174);
+				ctx.lineTo(280,174);
+				ctx.lineTo(280,206);
+				ctx.lineTo(134,206);
+				ctx.lineTo(188,250);
+				ctx.lineTo(130,250);
+				ctx.lineTo(54,190);
 				ctx.stroke();
 			}
+			function rightArrow(){
+				ctx.moveTo(916,190);
+				ctx.lineTo(840,130);
+				ctx.lineTo(792,130);
+				ctx.lineTo(844,174);
+				ctx.lineTo(690,174);
+				ctx.lineTo(690,206);
+				ctx.lineTo(844,206);
+				ctx.lineTo(792,250);
+				ctx.lineTo(840,250);
+				ctx.lineTo(916,190);
+				ctx.stroke();
+			
+			}
+			function b1Sign(){
+				ctx.moveTo(335,48);
+				ctx.lineTo(335,332);
+				ctx.lineTo(432,332);
+				ctx.lineTo(405,309);
+				ctx.lineTo(405,70);
+				ctx.lineTo(572,70);
+				//小圆弧
+				ctx.lineTo(572,232);
+				//ctx.beginPath();
+				ctx.arc(572,266,17,-0.5*Math.PI,0.5*Math.PI,false);
+				
+				ctx.lineTo(572,309);
+				ctx.lineTo(621,332);
+				ctx.lineTo(635,332);
+				ctx.lineTo(635,48);
+				ctx.lineTo(335,48);
+				
+				//head
+				ctx.moveTo(481,100);
+				ctx.arc(461,100,21,0,2*Math.PI);
+				
+				//body
+				ctx.moveTo(405,168);
+				ctx.lineTo(427,168);
+				ctx.lineTo(458,126);
+				ctx.lineTo(535,126);
+				ctx.lineTo(560,168);
+				ctx.arc(
+					(18*Math.sin((2*Math.PI)/360)+560),
+					(18*Math.cos((2*Math.PI)/360)+168),
+					18,0,
+					25*Math.PI*Math.PI,2.25*Math.PI,false
+					//这里问题没解决16.1.8
+				);
+				
+				ctx.stroke();
+			}
+			
 			
 			function clear(){
 				var clr=document.getElementById(myCanvas);
