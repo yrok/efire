@@ -15,6 +15,9 @@
 			.btn-box{
 				margin-top:20px;
 			}
+			.picRotate{
+				transform:rotateY(180deg);
+			}
 		</style>
 	</head>
 	<body>
@@ -22,23 +25,32 @@
 			<p><h1>灯具标志图</h1></p>
 			
 			<canvas id="myCanvas" width="970" height="380" style="border:2px solid #000000;">
-				您的浏览器不支持 HTML5 canvas 标签。
+				您的浏览器不支持 HTML5 canvas 标签，请更换浏览器！				
 			</canvas>
 		</div>
 		<div class="btm-box">
 			<button onClick=rectBorder();>Rect</button>
 			<button onClick=arrow();>LeftArrow</button>
+			<button onClick=signB(330,40);>B1</button>
 			<button onClick=rightArrow();>RightArrow</button>
-			<button onClick=b1Sign();>B1</button>
-			<button onClick=clear();>Clear</button>
-			<button onClick=savectx();>Save</button>
+			<button onClick=clean();>clear</button>
+			<button onclick=signB2(330,40)>B2</button>
 		</div>
 		
 		<script>
 			var c=document.getElementById("myCanvas");
 			var ctx=c.getContext("2d");
+			
+			function signB2(m,n){
+				signB(m,n);
+				c.className="picRotate";
+			}
+			
 			ctx.lineWidth=2;
 			var num=1;
+			//init signB's parmeter m and n.
+			var m,n;
+			
 			//设置倾角15度，然后计算出弧度
 			var ang=(15*2*Math.PI)/360;
 			//report the mouse position on click
@@ -48,7 +60,8 @@
 					//alert(mousePos.x +',' + mousePos.y);
 					var x=Math.floor(mousePos.x);
 					var y=Math.floor(mousePos.y);
-					
+					//设置文字大小
+					ctx.font="25px Arial";
 					
 					ctx.lineWidth=1;
 					ctx.moveTo(Math.floor(mousePos.x),Math.floor(mousePos.y))
@@ -56,17 +69,21 @@
 					//确定引线方向
 					if((y-190)<0){
 						ctx.lineTo((Math.tan(ang)*(y-30)+x),30);
-						ctx.lineTo(((Math.tan(ang)*(y-30)+x)+15),30);
+						num<10?
+						ctx.lineTo(((Math.tan(ang)*(y-30)+x)+19),30):
+						ctx.lineTo(((Math.tan(ang)*(y-30)+x)+32),30);
 						//设置文字，横下上方
 						ctx.textBaseline="Bottom";
-						ctx.fillText(num,(Math.tan(ang)*(y-30)+x+3),28);
+						ctx.fillText(num,(Math.tan(ang)*(y-30)+x+3),27);
 					
 					}else{
-						ctx.lineTo((Math.tan(ang)*(350-y)+x),353);
-						ctx.lineTo(((Math.tan(ang)*(350-y)+x)+15),353);
+						ctx.lineTo((Math.tan(ang)*(350-y)+x),364);
+						num<10?
+						ctx.lineTo(((Math.tan(ang)*(350-y)+x)+19),364):
+						ctx.lineTo(((Math.tan(ang)*(350-y)+x)+32),364);
 						//设置文字，横线下方
 						ctx.textBaseline="Top";
-						ctx.fillText(num,(Math.tan(ang)*(350-y)+x+3),351);
+						ctx.fillText(num,(Math.tan(ang)*(350-y)+x+3),362);
 						
 						//console.log((Math.tan(ang)*(y-30)+x));
 						//console.log((Math.tan(ang)*(y-30)+x)+15);
@@ -125,57 +142,122 @@
 				ctx.stroke();
 			
 			}
-			function b1Sign(){
-				ctx.moveTo(335,48);
-				ctx.lineTo(335,332);
-				ctx.lineTo(432,332);
-				ctx.lineTo(405,309);
-				ctx.lineTo(405,70);
-				ctx.lineTo(572,70);
-				//小圆弧
-				ctx.lineTo(572,232);
-				//ctx.beginPath();
-				ctx.arc(572,266,17,-0.5*Math.PI,0.5*Math.PI,false);
-				
-				ctx.lineTo(572,309);
-				ctx.lineTo(621,332);
-				ctx.lineTo(635,332);
-				ctx.lineTo(635,48);
-				ctx.lineTo(335,48);
+			
+			function signB(m,n){
+				//door
+				ctx.moveTo(0+m,0+n);
+				ctx.lineTo(0+m,300+n);
+				ctx.lineTo(104+m,300+n);
+				ctx.lineTo(74+m,270+n);
+				ctx.lineTo(74+m,20+n);
+				ctx.lineTo(247+m,20+n);
+				ctx.lineTo(247+m,194+n);
+				ctx.lineTo(256+m,194+n);
+				ctx.arc(
+					256+m,211+n,
+					17,
+					-0.5*Math.PI,
+					0.5*Math.PI,
+					false
+				);
+				ctx.lineTo(247+m,228+n);
+				ctx.lineTo(247+m,270+n);
+				ctx.lineTo(280+m,300+n);
+				ctx.lineTo(311+m,300+n);
+				ctx.lineTo(311+m,0+n);
+				ctx.lineTo(0+m,0+n);
 				
 				//head
-				ctx.moveTo(481,100);
-				ctx.arc(461,100,21,0,2*Math.PI);
-				
+				ctx.moveTo(151+m,57+n);
+				ctx.arc(131+m,57+n,20,0,2*Math.PI);
 				//body
-				ctx.moveTo(405,168);
-				ctx.lineTo(427,168);
-				ctx.lineTo(458,126);
-				ctx.lineTo(535,126);
-				ctx.lineTo(560,168);
+				ctx.moveTo(74+m,128+n);
+				ctx.lineTo(96+m,128+n);
+				ctx.lineTo(129+m,84+n);
+				ctx.lineTo(210+m,84+n);
+				ctx.lineTo(239+m,128+n);
 				ctx.arc(
-					(18*Math.sin((2*Math.PI)/360)+560),
-					(18*Math.cos((2*Math.PI)/360)+168),
-					18,0,
-					25*Math.PI*Math.PI,2.25*Math.PI,false
-					//这里问题没解决16.1.8
+					239-Math.sqrt(196/(44*44+29*29))*22+m,
+					Math.sqrt(196/(44*44+29*29))*29*0.5+128+n,
+					7,
+					-Math.atan(29/44),
+					Math.atan(44/29)+0.5*Math.PI,
+					false
+					
+				
+				);
+				ctx.lineTo(200+m,98+n);
+				
+				ctx.moveTo(74+m,140+n);
+				ctx.lineTo(103+m,140+n);
+				ctx.lineTo(122+m,114+n);
+				ctx.lineTo(128+m,114+n);
+				ctx.lineTo(144+m,158+n);
+				ctx.lineTo(96+m,254+n);
+				//foot
+				ctx.moveTo(
+					96+8*Math.sqrt(5)+m,
+					254+4*Math.sqrt(5)+n				
+				);
+				ctx.arc(
+					96+4*Math.sqrt(5)+m,
+					254+2*Math.sqrt(5)+n,
+					10,
+					90*2*Math.PI/360-Math.atan(2),
+					180*2*Math.PI/360+90*2*Math.PI/360-Math.atan(2),
+					false
 				);
 				
-				ctx.stroke();
-			}
-			
-			
-			function clear(){
-				var clr=document.getElementById(myCanvas);
-				var cleanr=clr.getContext("2d");
-				alert("clear");
-				clr.clearRect(10,10,300,300);
+				//continue leg
+				ctx.moveTo(
+					96+8*Math.sqrt(5)+m,
+					254+4*Math.sqrt(5)+n
+				);
+				ctx.lineTo(168+m,158+n);
+				ctx.lineTo(173+m,158+n);
+				ctx.lineTo(178+m,201+n);
+				//这里本应该是个圆弧过度，但是太麻烦了直接直角了= =#
+				ctx.lineTo((63*5/43)+173+m,221+n);
+				ctx.lineTo(256+m,221+n);
+				ctx.arc(
+					256+m,211+n,
+					10,
+					0.5*Math.PI,
+					-0.5*Math.PI,
+					true
+				);
+				ctx.lineTo(199+m,201+n);
+				//arm right
+				ctx.moveTo(200+m,98+n);
+				ctx.lineTo(170+m,98+n);
+				ctx.lineTo(194+m,158+n);
+				ctx.lineTo(199+m,201+n);
+				//倒影
+				ctx.moveTo(122+m,300+n);
+				ctx.lineTo(122+20*Math.sqrt(2)+m,300+n);
+				ctx.lineTo(122+1.5*Math.sqrt(2)+m,300-20*Math.sqrt(2)+1.5*Math.sqrt(2)+n);
+				ctx.arc(
+					122-5*Math.sqrt(2)+1.5*Math.sqrt(2)+m,
+					300-15*Math.sqrt(2)+1.5*Math.sqrt(2)+n,
+					10,
+					-45*2*Math.PI/360,
+					135*2*Math.PI/360,
+					true
+				);
+				ctx.lineTo(122+m,300+n);
 				
+				ctx.stroke();
+				var imgData=ctx.getImageData(0,0,970,380);
+				console.log(imgData);
+			
 			}
 			
-			function savectx(){
-				save()
+			function clean(){
+			ctx.strokeRect(20,20,100,100);
+			ctx.clearRect(20,20,100,100);			
+			ctx.save();
 			}
+			
 		</script>
 		<script src="canvas2Image.js"></script>
 	</body>
