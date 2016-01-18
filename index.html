@@ -1,7 +1,8 @@
-<!Doctype HTML>
-<html lang=zh-cn>
+<!DOCTYPE html>
+<html lang=zh-CN>
 	<head>
 		<meta charset="UTF-8"></meta>
+		<title>灯具标志图制作工具</title>
 		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 		<style>
 			body div{
@@ -11,7 +12,7 @@
 				display:inline-block;
 			}
 			h1{
-				color:blue;
+				color:black;
 			}
 			.btn-box{
 				margin-top:20px;
@@ -20,7 +21,7 @@
 					display:none;
 			}
 			.sign-choose{
-				display:block;
+				display:none;
 			}
 			.border-choose{
 				display:block;
@@ -39,13 +40,14 @@
 			<div calss="canv-choose">
 				<div class="border-choose">
 					<h2>选择标志边框</h2>
-					<button onClick=rectBorder();>Rect</button>
-					<button onClick=midRec(330,54);>middleRect</button>
-					<button onClick=smallRec(330,54);>SmallRect</button>
-					<button onClick=cirRect(330,54);>CircleRect</button>
-					<button onclick=canTxt(300,40);>txt</button>
+					<button class="btn-bdr" onClick=rectBorder();>Rect</button>
+					<button class="btn-bdr" onClick=midRec(330,54);>middleRect</button>
+					<button class="btn-bdr" onClick=smallRec(330,54);>SmallRect</button>
+					<button class="btn-bdr" onClick=cirRect(330,54);>CircleRect</button>
+					<button class="btn-bdr" onclick=canTxt(300,40);>txt</button>
 				</div>
 				<div class="sign-choose">
+					<h2>选择左侧标志图形</h2>
 					<div class="rectLeft"></div>
 					<div class="rectMid">
 						<button onClick=arrow(0,14);>LeftArrow</button>
@@ -59,6 +61,14 @@
 					<div class="rectRight"></div>
 					
 				</div>
+				<div>
+				    <form action="" method="get"> 
+						<label for="color-tyep"><input name="color-type" type="radio" value="false" />单色 </label> 
+						<label for="color-type"><input name="color-type" type="radio" value="true" />双色 </label> 
+    
+					</form> 
+				</div>
+				
 			</div>
 			
 			<div class="canv-large"></div>
@@ -78,6 +88,7 @@
 			//report the mouse position on click
 			c.addEventListener("click", 
 					function (evt) {
+						
 						var mousePos = getMousePos(c, evt);
 						//alert(mousePos.x +',' + mousePos.y);
 						var x=Math.floor(mousePos.x);
@@ -88,28 +99,34 @@
 					//确定引线方向
 					if((y-190)<0){
 						ctx.lineTo((Math.tan(ang)*(y-30)+x),30);
+						//如果数字大于10,则出于美观，延长下划线
 						num<10?
 						ctx.lineTo(((Math.tan(ang)*(y-30)+x)+19),30):
 						ctx.lineTo(((Math.tan(ang)*(y-30)+x)+32),30);
 						//设置文字，横下上方
 						ctx.font="25px Arial";
-						ctx.textBaseline="Bottom";
+						ctx.fillStyle = 'black';
+						ctx.textBaseline="alphabetic";
 						ctx.fillText(num,(Math.tan(ang)*(y-30)+x+3),27);
 					
 					}else{
 						ctx.lineTo((Math.tan(ang)*(350-y)+x),364+28);
+						//如果数字大于10,则出于美观，延长下划线
 						num<10?
 						ctx.lineTo(((Math.tan(ang)*(350-y)+x)+19),364+28):
 						ctx.lineTo(((Math.tan(ang)*(350-y)+x)+32),364+28);
 						//设置文字，横线下方
 						ctx.font="25px Arial";
-						ctx.textBaseline="Top";
+						ctx.fillStyle = 'black';
+						ctx.textBaseline="alphabetic";
 						ctx.fillText(num,(Math.tan(ang)*(350-y)+x+3),362+28);
 						
-						//console.log((Math.tan(ang)*(y-30)+x));
+						
 						//console.log((Math.tan(ang)*(y-30)+x)+15);
 						
 					}
+					console.log(ctx.textBaseline);
+					console.log(num,(Math.tan(ang)*(350-y)+x+3),362+28);
 					//console.log(Math.tan(45*2*Math.PI/360));
 					//console.log(Math.tan(ang)*(y-30),350);
 					num++;
@@ -138,10 +155,14 @@
 				ctx.strokeText(oTxt,54,204);
 				ctx.fillStyle = 'white';
 				ctx.fillText(oTxt,54,204);
+				ctx.lineWidth = 2;
 			}
 			//large rect
-			$("#btn1").click(function(){
-				$("#test1").text("Hello world!");
+			$(document).ready(function(){
+				$(".btn-bdr").click(function(){
+					$(".border-choose").hide();
+					$(".sign-choose").show();
+				});
 			});
 			
 			function rectBorder(){
