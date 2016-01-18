@@ -1,337 +1,389 @@
 <!DOCTYPE html>
 <html lang=zh-CN>
-	<head>
-		<meta charset="UTF-8"></meta>
-		<title>灯具标志图制作工具</title>
-		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-		<style>
-			body div{
-				text-align:center;
-			}
-			#myCanvas{
-				display:inline-block;
-			}
-			h1{
-				color:black;
-			}
-			.btn-box{
-				margin-top:20px;
-			}
-			#imgB2{
-					display:none;
-			}
-			.sign-choose{
-				display:none;
-			}
-			.border-choose{
-				display:block;
-			}
-		</style>
-	</head>
-	<body>
-		<div>
-			<p><h1>灯具标志图</h1></p>
-			
-			<canvas id="myCanvas" width="970" height="408" style="border:2px solid #000000;">
-				您的浏览器不支持 HTML5 canvas 标签，请更换浏览器！				
-			</canvas>
-		</div>
-		<div class="btm-box">
-			<div calss="canv-choose">
-				<div class="border-choose">
-					<h2>选择标志边框</h2>
-					<button class="btn-bdr" onClick=rectBorder();>Rect</button>
-					<button class="btn-bdr" onClick=midRec(330,54);>middleRect</button>
-					<button class="btn-bdr" onClick=smallRec(330,54);>SmallRect</button>
-					<button class="btn-bdr" onClick=cirRect(330,54);>CircleRect</button>
-					<button class="btn-bdr" onclick=canTxt(300,40);>txt</button>
-				</div>
-				<div class="sign-choose">
-					<h2>选择左侧标志图形</h2>
-					<div class="rectLeft"></div>
-					<div class="rectMid">
-						<button onClick=arrow(0,14);>LeftArrow</button>
-						<button onClick=signB(330,54);>B1</button>
-						<button onclick=signB2(330,54)>B2</button>
-						<button onClick=rightArrow(0,14);>RightArrow</button>
-						<input id="input-txt"value="安全出口">请输入文字</input>
-						
-						
-					</div>
-					<div class="rectRight"></div>
-					
-				</div>
-				<div>
-				    <form action="" method="get"> 
-						<label for="color-tyep"><input name="color-type" type="radio" value="false" />单色 </label> 
-						<label for="color-type"><input name="color-type" type="radio" value="true" />双色 </label> 
-    
-					</form> 
-				</div>
-				
-			</div>
-			
-			<div class="canv-large"></div>
-			<div class="canv-middle"></div>
-			<div class="canv-small"></div>
-		</div>
-		<img id="imgB2">
-		<script>
-			var c=document.getElementById("myCanvas");
-			var ctx=c.getContext("2d");
-			ctx.lineWidth=2;
-			var num=1;
-			ctx.font="25px Arial";
-			//设置倾角15度，然后计算出弧度
-			var ang=(15*2*Math.PI)/360;
-			
-			//report the mouse position on click
-			c.addEventListener("click", 
-					function (evt) {
-						
-						var mousePos = getMousePos(c, evt);
-						//alert(mousePos.x +',' + mousePos.y);
-						var x=Math.floor(mousePos.x);
-						var y=Math.floor(mousePos.y);
-						ctx.lineWidth=1;
-						ctx.moveTo(Math.floor(mousePos.x),Math.floor(mousePos.y))
-					
-					//确定引线方向
-					if((y-190)<0){
-						ctx.lineTo((Math.tan(ang)*(y-30)+x),30);
-						//如果数字大于10,则出于美观，延长下划线
-						num<10?
-						ctx.lineTo(((Math.tan(ang)*(y-30)+x)+19),30):
-						ctx.lineTo(((Math.tan(ang)*(y-30)+x)+32),30);
-						//设置文字，横下上方
-						ctx.font="25px Arial";
-						ctx.fillStyle = 'black';
-						ctx.textBaseline="alphabetic";
-						ctx.fillText(num,(Math.tan(ang)*(y-30)+x+3),27);
-					
-					}else{
-						ctx.lineTo((Math.tan(ang)*(350-y)+x),364+28);
-						//如果数字大于10,则出于美观，延长下划线
-						num<10?
-						ctx.lineTo(((Math.tan(ang)*(350-y)+x)+19),364+28):
-						ctx.lineTo(((Math.tan(ang)*(350-y)+x)+32),364+28);
-						//设置文字，横线下方
-						ctx.font="25px Arial";
-						ctx.fillStyle = 'black';
-						ctx.textBaseline="alphabetic";
-						ctx.fillText(num,(Math.tan(ang)*(350-y)+x+3),362+28);
-						
-						
-						//console.log((Math.tan(ang)*(y-30)+x)+15);
-						
-					}
-					console.log(ctx.textBaseline);
-					console.log(num,(Math.tan(ang)*(350-y)+x+3),362+28);
-					//console.log(Math.tan(45*2*Math.PI/360));
-					//console.log(Math.tan(ang)*(y-30),350);
-					num++;
-					console.log(Math.floor(mousePos.x),Math.floor(mousePos.y));
-					ctx.stroke();
-				}
-				
-			, true);
-			
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>灯具标志图制作工具</title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        body div {
+            text-align: center;
+        }
 
-			//Get Mouse Position
-            function getMousePos(c, evt) {
-			var rect = c.getBoundingClientRect();
-			return {
-				x: evt.clientX - rect.left * (c.width / rect.width),
-				y: evt.clientY - rect.top * (c.height / rect.height)
-				}
-			}
-			//
-			function canTxt(x,y){
-				var oTxt=document.getElementById('input-txt').value;
-				ctx.font="100px 方正超粗黑简体";
-				ctx.lineWidth = 5;
-				ctx.strokeStyle = 'black';
-				ctx.textBaseline="middle";
-				ctx.strokeText(oTxt,54,204);
-				ctx.fillStyle = 'white';
-				ctx.fillText(oTxt,54,204);
-				ctx.lineWidth = 2;
-			}
-			//large rect
-			$(document).ready(function(){
-				$(".btn-bdr").click(function(){
-					$(".border-choose").hide();
-					$(".sign-choose").show();
-				});
-			});
-			
-			function rectBorder(){
-				$('sign-choose').show();
-				$('border-choose').hide();
-				ctx.rect(40,40,890,328);
-				ctx.stroke();
-			}
-			
-			function smallRec(m,n){
-				ctx.rect(-14+m,-14+n,339,328);
-			ctx.stroke();
-			}
-			//这里还有个中间大小的框
-			function cirRect(x,y){
-				ctx.arc(
-					480,204,
-					Math.sqrt(
-						(311*311/4+150*150)
-					)+14,
-					0,2*Math.PI,false);
-				ctx.stroke();
-				//need to scale
-			}
-			
-			function arrow(x,y){
-				ctx.moveTo(54+x,190+y);
-				ctx.lineTo(130+x,130+y);
-				ctx.lineTo(188+x,130+y);
-				ctx.lineTo(134+x,174+y);
-				ctx.lineTo(280+x,174+y);
-				ctx.lineTo(280+x,206+y);
-				ctx.lineTo(134+x,206+y);
-				ctx.lineTo(188+x,250+y);
-				ctx.lineTo(130+x,250+y);
-				ctx.lineTo(54+x,190+y);
-				ctx.stroke();
-			}
-			//这个arrow正常也应该是初始化的坐标，但是由于最开始未考虑到parameter，所以暂时这样，计算会费些事情了，对于强迫的我真是闹心。。。
-			function rightArrow(x,y){
-				ctx.moveTo(916+x,190+y);
-				ctx.lineTo(840+x,130+y);
-				ctx.lineTo(792+x,130+y);
-				ctx.lineTo(844+x,174+y);
-				ctx.lineTo(690+x,174+y);
-				ctx.lineTo(690+x,206+y);
-				ctx.lineTo(844+x,206+y);
-				ctx.lineTo(792+x,250+y);
-				ctx.lineTo(840+x,250+y);
-				ctx.lineTo(916+x,190+y);
-				ctx.stroke();
-			
-			}
-			
-			function signB(m,n){
-				//door
-				ctx.moveTo(0+m,0+n);
-				ctx.lineTo(0+m,300+n);
-				ctx.lineTo(104+m,300+n);
-				ctx.lineTo(74+m,270+n);
-				ctx.lineTo(74+m,20+n);
-				ctx.lineTo(247+m,20+n);
-				ctx.lineTo(247+m,194+n);
-				ctx.lineTo(256+m,194+n);
-				ctx.arc(
-					256+m,211+n,
-					17,
-					-0.5*Math.PI,
-					0.5*Math.PI,
-					false
-				);
-				ctx.lineTo(247+m,228+n);
-				ctx.lineTo(247+m,270+n);
-				ctx.lineTo(280+m,300+n);
-				ctx.lineTo(311+m,300+n);
-				ctx.lineTo(311+m,0+n);
-				ctx.lineTo(0+m,0+n);
-				
-				//head
-				ctx.moveTo(151+m,57+n);
-				ctx.arc(131+m,57+n,20,0,2*Math.PI);
-				//body
-				ctx.moveTo(74+m,128+n);
-				ctx.lineTo(96+m,128+n);
-				ctx.lineTo(129+m,84+n);
-				ctx.lineTo(210+m,84+n);
-				ctx.lineTo(239+m,128+n);
-				ctx.arc(
-					239-Math.sqrt(196/(44*44+29*29))*22+m,
-					Math.sqrt(196/(44*44+29*29))*29*0.5+128+n,
-					7,
-					-Math.atan(29/44),
-					Math.atan(44/29)+0.5*Math.PI,
-					false
-					
-				
-				);
-				ctx.lineTo(200+m,98+n);
-				
-				ctx.moveTo(74+m,140+n);
-				ctx.lineTo(103+m,140+n);
-				ctx.lineTo(122+m,114+n);
-				ctx.lineTo(128+m,114+n);
-				ctx.lineTo(144+m,158+n);
-				ctx.lineTo(96+m,254+n);
-				//foot
-				ctx.moveTo(
-					96+8*Math.sqrt(5)+m,
-					254+4*Math.sqrt(5)+n				
-				);
-				ctx.arc(
-					96+4*Math.sqrt(5)+m,
-					254+2*Math.sqrt(5)+n,
-					10,
-					90*2*Math.PI/360-Math.atan(2),
-					180*2*Math.PI/360+90*2*Math.PI/360-Math.atan(2),
-					false
-				);
-				
-				//continue leg
-				ctx.moveTo(
-					96+8*Math.sqrt(5)+m,
-					254+4*Math.sqrt(5)+n
-				);
-				ctx.lineTo(168+m,158+n);
-				ctx.lineTo(173+m,158+n);
-				ctx.lineTo(178+m,201+n);
-				//这里本应该是个圆弧过度，但是太麻烦了直接直角了= =#
-				ctx.lineTo((63*5/43)+173+m,221+n);
-				ctx.lineTo(256+m,221+n);
-				ctx.arc(
-					256+m,211+n,
-					10,
-					0.5*Math.PI,
-					-0.5*Math.PI,
-					true
-				);
-				ctx.lineTo(199+m,201+n);
-				//arm right
-				ctx.moveTo(200+m,98+n);
-				ctx.lineTo(170+m,98+n);
-				ctx.lineTo(194+m,158+n);
-				ctx.lineTo(199+m,201+n);
-				//倒影
-				ctx.moveTo(122+m,300+n);
-				ctx.lineTo(122+20*Math.sqrt(2)+m,300+n);
-				ctx.lineTo(122+1.5*Math.sqrt(2)+m,300-20*Math.sqrt(2)+1.5*Math.sqrt(2)+n);
-				ctx.arc(
-					122-5*Math.sqrt(2)+1.5*Math.sqrt(2)+m,
-					300-15*Math.sqrt(2)+1.5*Math.sqrt(2)+n,
-					10,
-					-45*2*Math.PI/360,
-					135*2*Math.PI/360,
-					true
-				);
-				ctx.lineTo(122+m,300+n);
-				
-				ctx.stroke();
-			}
-			function signB2(m,n){
-				var oImg=document.getElementById('imgB2');
-				oImg.src=imgB2;
-				ctx.drawImage(oImg,m,n,311,300);
-			}
-						
-			var imgB2="data:image/png;base64,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";
-		</script>
-		
-	</body>
+        #myCanvas {
+            display: inline-block;
+        }
+
+        h1 {
+            color: black;
+        }
+
+        .btn-box {
+            margin-top: 20px;
+        }
+
+        #imgB2 {
+            display: none;
+        }
+
+        .sign-choose {
+            display: none;
+        }
+
+        .border-choose {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <p>
+
+    <h1>灯具标志图</h1></p>
+
+    <canvas id="myCanvas" width="970" height="408" style="border:2px solid #000000;">
+        您的浏览器不支持 HTML5 canvas 标签，请更换浏览器！
+    </canvas>
+</div>
+<div class="btm-box">
+    <div calss="canv-choose">
+        <div class="border-choose">
+            <h2>选择标志边框</h2>
+            <button class="btn-bdr" onClick=rectBorder();>Rect</button>
+            <button class="btn-bdr" onClick=midRec(330,54);>middleRect</button>
+            <button class="btn-bdr" onClick=smallRec(330,54);>SmallRect</button>
+            <button class="btn-bdr" onClick=cirRect(330,54);>CircleRect</button>
+            <button class="btn-bdr" onclick=canTxt(300,40);>txt</button>
+        </div>
+        <div class="sign-choose">
+            <h2>选择左侧标志图形</h2>
+
+            <div class="rectLeft"></div>
+            <div class="rectMid">
+                <button onClick=arrow(0,14);>LeftArrow</button>
+                <button onClick=signB(330,54);>B1</button>
+                <button onclick=signB2(330,54)>B2</button>
+                <button onClick=rightArrow(0,14);>RightArrow</button>
+                <input id="input-txt" value="安全出口">请输入文字</input>
+
+
+            </div>
+            <div class="rectRight"></div>
+
+        </div>
+        <div>
+            <form action="" method="get">
+                <label for="color-tyep"><input name="color-type" type="radio" value="false"/>单色 </label>
+                <label for="color-type"><input name="color-type" type="radio" value="true"/>双色 </label>
+
+            </form>
+        </div>
+
+    </div>
+
+    <div class="canv-large"></div>
+    <div class="canv-middle"></div>
+    <div class="canv-small"></div>
+</div>
+<img id="imgB2">
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+ctx.lineWidth = 2;
+var num = 1;
+ctx.font = "25px Arial";
+//设置倾角15度，然后计算出弧度
+var ang = (15 * 2 * Math.PI) / 360;
+
+function base(arr) {
+    for (k in arr) {
+        key = arr[k][0];
+        value = arr[k][1];
+        if (key === 'lineTo') {
+            ctx.lineTo(value[0], value[1]);
+        } else if (key === 'arc') {
+            ctx.arc(value[0], value[1], value[2], value[3], value[4], value[5]);
+        } else if (key === 'moveTo') {
+            ctx.moveTo(value[0], value[1]);
+        } else if (key === 'rect') {
+            ctx.rect(value[0], value[1], value[2], value[3]);
+        }
+    }
+    ctx.stroke();
+}
+function ctxConfig(arr) {
+    for (k in arr) {
+        key = arr[k][0];
+        value = arr[k][1];
+        switch(key){
+            case 'lineWidth':
+                ctx.lineWidth = value;
+                break;
+            case 'font':
+                    ctx.font = value;
+                break;
+            case 'fillStyle':
+                ctx.fillStyle = value;
+                break;
+            case 'textBaseline':
+                ctx.textBaseline = value;
+                break;
+            case 'strokeStyle':
+                ctx.strokeStyle = value;
+                break;
+            case 'textBaseline':
+                ctx.textBaseline = value;
+                break;
+            case 'fillStyle':
+                    ctx.fillStyle = value;
+                break;
+        }
+        console.log(arr[k][0]);
+        ctx.key = arr[k][1];
+    }
+
+}
+//report the mouse position on click
+c.addEventListener("click",
+        function (evt) {
+            var mousePos = getMousePos(c, evt);
+            //alert(mousePos.x +',' + mousePos.y);
+            var x = Math.floor(mousePos.x);
+            var y = Math.floor(mousePos.y);
+            ctxConfig([
+                ['lineWidth', '1'],
+                ['font', '25px Arial'],
+                ['fillStyle', 'black'],
+                ['textBaseline', 'alphabetic']
+            ]);
+            ctx.moveTo(Math.floor(mousePos.x), Math.floor(mousePos.y));
+            //确定引线方向
+            if ((y - 190) < 0) {
+                ctx.lineTo((Math.tan(ang) * (y - 30) + x), 30);
+                //如果数字大于10,则出于美观，延长下划线
+                num < 10 ?
+                        ctx.lineTo(((Math.tan(ang) * (y - 30) + x) + 19), 30) :
+                        ctx.lineTo(((Math.tan(ang) * (y - 30) + x) + 32), 30);
+                //设置文字，横下上方
+                ctx.fillText(num, (Math.tan(ang) * (y - 30) + x + 3), 27);
+
+            } else {
+                ctx.lineTo((Math.tan(ang) * (350 - y) + x), 364 + 28);
+                //如果数字大于10,则出于美观，延长下划线
+                num < 10 ?
+                        ctx.lineTo(((Math.tan(ang) * (350 - y) + x) + 19), 364 + 28) :
+                        ctx.lineTo(((Math.tan(ang) * (350 - y) + x) + 32), 364 + 28);
+                //设置文字，横线下方
+                ctx.fillText(num, (Math.tan(ang) * (350 - y) + x + 3), 362 + 28);
+
+            }
+            console.log(ctx.textBaseline);
+            console.log(num, (Math.tan(ang) * (350 - y) + x + 3), 362 + 28);
+            //console.log(Math.tan(45*2*Math.PI/360));
+            //console.log(Math.tan(ang)*(y-30),350);
+            num++;
+            console.log(Math.floor(mousePos.x), Math.floor(mousePos.y));
+            ctx.stroke();
+        }, true);
+
+
+//Get Mouse Position
+function getMousePos(c, evt) {
+    var rect = c.getBoundingClientRect();
+    return {
+        x: evt.clientX - rect.left * (c.width / rect.width),
+        y: evt.clientY - rect.top * (c.height / rect.height)
+    }
+}
+//
+function canTxt(x, y) {
+    var oTxt = document.getElementById('input-txt').value;
+    ctxConfig([
+        ['lineWidth', '5'],
+        ['font', '100px 方正超粗黑简体'],
+        ['strokeStyle', 'black'],
+        ['textBaseline', 'middle'],
+        ['fillStyle', 'white']
+    ]);
+
+    ctx.strokeText(oTxt, 54, 204);
+    ctx.fillText(oTxt, 54, 204);
+    ctx.lineWidth = 2;
+}
+//large rect
+$(document).ready(function () {
+    $(".btn-bdr").click(function () {
+        $(".border-choose").hide();
+        $(".sign-choose").show();
+    });
+});
+
+function rectBorder() {
+    $('sign-choose').show();
+    $('border-choose').hide();
+    ctx.rect(40, 40, 890, 328);
+    ctx.stroke();
+}
+
+function smallRec(m, n) {
+    ctx.rect(-14 + m, -14 + n, 339, 328);
+    ctx.stroke();
+}
+//这里还有个中间大小的框
+function cirRect(x, y) {
+    ctx.arc(
+            480, 204,
+            Math.sqrt(
+                    (311 * 311 / 4 + 150 * 150)
+            ) + 14,
+            0, 2 * Math.PI, false);
+    ctx.stroke();
+    //need to scale
+}
+
+function arrow(x, y) {
+    base([
+        ['moveTo', [54 + x, 190 + y]],
+        ['lineTo', [130 + x, 130 + y]],
+        ['lineTo', [188 + x, 130 + y]],
+        ['lineTo', [134 + x, 174 + y]],
+        ['lineTo', [280 + x, 174 + y]],
+        ['lineTo', [280 + x, 206 + y]],
+        ['lineTo', [134 + x, 206 + y]],
+        ['lineTo', [188 + x, 250 + y]],
+        ['lineTo', [130 + x, 250 + y]],
+        ['lineTo', [54 + x, 190 + y]]
+    ]);
+}
+//这个arrow正常也应该是初始化的坐标，但是由于最开始未考虑到parameter，所以暂时这样，计算会费些事情了，对于强迫的我真是闹心。。。
+function rightArrow(x, y) {
+    base([
+        ['moveTo', [916 + x, 190 + y]],
+        ['lineTo', [840 + x, 130 + y]],
+        ['lineTo', [792 + x, 130 + y]],
+        ['lineTo', [844 + x, 174 + y]],
+        ['lineTo', [690 + x, 174 + y]],
+        ['lineTo', [690 + x, 206 + y]],
+        ['lineTo', [844 + x, 206 + y]],
+        ['lineTo', [792 + x, 250 + y]],
+        ['lineTo', [840 + x, 250 + y]],
+        ['lineTo', [916 + x, 190 + y]]
+    ]);
+}
+
+
+function signB(m, n) {
+    //door
+    ctx.moveTo(0 + m, 0 + n);
+    ctx.lineTo(0 + m, 300 + n);
+    ctx.lineTo(104 + m, 300 + n);
+    ctx.lineTo(74 + m, 270 + n);
+    ctx.lineTo(74 + m, 20 + n);
+    ctx.lineTo(247 + m, 20 + n);
+    ctx.lineTo(247 + m, 194 + n);
+    ctx.lineTo(256 + m, 194 + n);
+    ctx.arc(
+            256 + m, 211 + n,
+            17,
+            -0.5 * Math.PI,
+            0.5 * Math.PI,
+            false
+    );
+    ctx.lineTo(247 + m, 228 + n);
+    ctx.lineTo(247 + m, 270 + n);
+    ctx.lineTo(280 + m, 300 + n);
+    ctx.lineTo(311 + m, 300 + n);
+    ctx.lineTo(311 + m, 0 + n);
+    ctx.lineTo(0 + m, 0 + n);
+
+    //head
+    ctx.moveTo(151 + m, 57 + n);
+    ctx.arc(131 + m, 57 + n, 20, 0, 2 * Math.PI);
+    //body
+    ctx.moveTo(74 + m, 128 + n);
+    ctx.lineTo(96 + m, 128 + n);
+    ctx.lineTo(129 + m, 84 + n);
+    ctx.lineTo(210 + m, 84 + n);
+    ctx.lineTo(239 + m, 128 + n);
+    ctx.arc(
+            239 - Math.sqrt(196 / (44 * 44 + 29 * 29)) * 22 + m,
+            Math.sqrt(196 / (44 * 44 + 29 * 29)) * 29 * 0.5 + 128 + n,
+            7,
+            -Math.atan(29 / 44),
+            Math.atan(44 / 29) + 0.5 * Math.PI,
+            false
+    );
+    ctx.lineTo(200 + m, 98 + n);
+
+    ctx.moveTo(74 + m, 140 + n);
+    ctx.lineTo(103 + m, 140 + n);
+    ctx.lineTo(122 + m, 114 + n);
+    ctx.lineTo(128 + m, 114 + n);
+    ctx.lineTo(144 + m, 158 + n);
+    ctx.lineTo(96 + m, 254 + n);
+    //foot
+    ctx.moveTo(
+            96 + 8 * Math.sqrt(5) + m,
+            254 + 4 * Math.sqrt(5) + n
+    );
+    ctx.arc(
+            96 + 4 * Math.sqrt(5) + m,
+            254 + 2 * Math.sqrt(5) + n,
+            10,
+            90 * 2 * Math.PI / 360 - Math.atan(2),
+            180 * 2 * Math.PI / 360 + 90 * 2 * Math.PI / 360 - Math.atan(2),
+            false
+    );
+
+    //continue leg
+    ctx.moveTo(
+            96 + 8 * Math.sqrt(5) + m,
+            254 + 4 * Math.sqrt(5) + n
+    );
+    ctx.lineTo(168 + m, 158 + n);
+    ctx.lineTo(173 + m, 158 + n);
+    ctx.lineTo(178 + m, 201 + n);
+    //这里本应该是个圆弧过度，但是太麻烦了直接直角了= =#
+    ctx.lineTo((63 * 5 / 43) + 173 + m, 221 + n);
+    ctx.lineTo(256 + m, 221 + n);
+    ctx.arc(
+            256 + m, 211 + n,
+            10,
+            0.5 * Math.PI,
+            -0.5 * Math.PI,
+            true
+    );
+    ctx.lineTo(199 + m, 201 + n);
+    //arm right
+    ctx.moveTo(200 + m, 98 + n);
+    ctx.lineTo(170 + m, 98 + n);
+    ctx.lineTo(194 + m, 158 + n);
+    ctx.lineTo(199 + m, 201 + n);
+    //倒影
+    ctx.moveTo(122 + m, 300 + n);
+    ctx.lineTo(122 + 20 * Math.sqrt(2) + m, 300 + n);
+    ctx.lineTo(122 + 1.5 * Math.sqrt(2) + m, 300 - 20 * Math.sqrt(2) + 1.5 * Math.sqrt(2) + n);
+    ctx.arc(
+            122 - 5 * Math.sqrt(2) + 1.5 * Math.sqrt(2) + m,
+            300 - 15 * Math.sqrt(2) + 1.5 * Math.sqrt(2) + n,
+            10,
+            -45 * 2 * Math.PI / 360,
+            135 * 2 * Math.PI / 360,
+            true
+    );
+    ctx.lineTo(122 + m, 300 + n);
+
+    ctx.stroke();
+}
+function signB2(m, n) {
+    var oImg = document.getElementById('imgB2');
+    oImg.src = imgB2;
+    ctx.drawImage(oImg, m, n, 311, 300);
+}
+
+var imgB2 = "data:image/png;base64,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";
+</script>
+
+</body>
 
 
 </html>
