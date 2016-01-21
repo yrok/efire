@@ -9,5 +9,7 @@ This is a webpage which I use to get rid of photoshop&cad for my daily work.
 4. 破ide有助于提高手写代码能力。
 5. 在摘抄代码的时，前提是弄明白原理。
 6. 还需要学好基础。
+
+
 ------
 thanks to @thomasxu1991
