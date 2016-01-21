@@ -39,7 +39,6 @@
     <p>
 
     <h1>灯具标志图</h1></p>
-
     <canvas id="myCanvas" width="970" height="408" style="border:2px solid #000000;">
         您的浏览器不支持 HTML5 canvas 标签，请更换浏览器！
     </canvas>
@@ -52,334 +51,480 @@
             <button class="btn-bdr" onClick=midRec(330,54);>middleRect</button>
             <button class="btn-bdr" onClick=smallRec(330,54);>SmallRect</button>
             <button class="btn-bdr" onClick=cirRect(330,54);>CircleRect</button>
-            <button class="btn-bdr" onclick=canTxt(300,40);>txt</button>
+            
         </div>
         <div class="sign-choose">
             <h2>选择左侧标志图形</h2>
 
             <div class="rectLeft"></div>
             <div class="rectMid">
-                <button onClick=arrow(0,14);>LeftArrow</button>
-                <button onClick=signB(330,54);>B1</button>
-                <button onclick=signB2(330,54)>B2</button>
-                <button onClick=rightArrow(0,14);>RightArrow</button>
-                <input id="input-txt" value="安全出口">请输入文字</input>
-
-
+                <button onClick=leftArrow(0,14);>←</button>
+                <button onClick=signB1(330,54);>B1</button>
+                <button onclick=signB2(330,54,485)>B2</button>
+                <button onClick=mirrorArror(0,14,155);>→</button>
+                
+                <br>
+                <textarea name="textarea" id="txtInput" cols="30" rows="2" placeholder="请输入文字"></textarea>
+                <button class="btn-bdr" onclick=canTxt(300,40);>txt</button>
             </div>
             <div class="rectRight"></div>
-
         </div>
         <div>
             <form action="" method="get">
-                <label for="color-tyep"><input name="color-type" type="radio" value="false"/>单色 </label>
+                <label for="color-tyep"><input checked name="color-type" type="radio" value="false"/>单色 </label>
                 <label for="color-type"><input name="color-type" type="radio" value="true"/>双色 </label>
-
             </form>
         </div>
-
     </div>
-
     <div class="canv-large"></div>
     <div class="canv-middle"></div>
     <div class="canv-small"></div>
 </div>
 <img id="imgB2">
 <script>
-var c = document.getElementById("myCanvas");
-var ctx = c.getContext("2d");
-ctx.lineWidth = 2;
-var num = 1;
-ctx.font = "25px Arial";
-//设置倾角15度，然后计算出弧度
-var ang = (15 * 2 * Math.PI) / 360;
-
-function base(arr) {
-    for (k in arr) {
-        key = arr[k][0];
-        value = arr[k][1];
-        if (key === 'lineTo') {
-            ctx.lineTo(value[0], value[1]);
-        } else if (key === 'arc') {
-            ctx.arc(value[0], value[1], value[2], value[3], value[4], value[5]);
-        } else if (key === 'moveTo') {
-            ctx.moveTo(value[0], value[1]);
-        } else if (key === 'rect') {
-            ctx.rect(value[0], value[1], value[2], value[3]);
-        }
-    }
-    ctx.stroke();
-}
-function ctxConfig(arr) {
-    for (k in arr) {
-        key = arr[k][0];
-        value = arr[k][1];
-        switch (key) {
-            case 'lineWidth':
-                ctx.lineWidth = value;
-                break;
-            case 'font':
-                ctx.font = value;
-                break;
-            case 'fillStyle':
-                ctx.fillStyle = value;
-                break;
-            case 'textBaseline':
-                ctx.textBaseline = value;
-                break;
-            case 'strokeStyle':
-                ctx.strokeStyle = value;
-                break;
-            case 'textBaseline':
-                ctx.textBaseline = value;
-                break;
-            case 'fillStyle':
-                ctx.fillStyle = value;
-                break;
-        }
-        console.log(arr[k][0]);
-        ctx.key = arr[k][1];
-    }
-
-}
-//report the mouse position on click
-c.addEventListener("click",
-        function (evt) {
-            var mousePos = getMousePos(c, evt);
-            //alert(mousePos.x +',' + mousePos.y);
-            var x = Math.floor(mousePos.x);
-            var y = Math.floor(mousePos.y);
-            ctxConfig([
-                ['lineWidth', '1'],
-                ['font', '25px Arial'],
-                ['fillStyle', 'black'],
-                ['textBaseline', 'alphabetic']
-            ]);
-            ctx.moveTo(Math.floor(mousePos.x), Math.floor(mousePos.y));
-            //确定引线方向
-            if ((y - 190) < 0) {
-                ctx.lineTo((Math.tan(ang) * (y - 30) + x), 30);
-                //如果数字大于10,则出于美观，延长下划线
-                num < 10 ?
-                        ctx.lineTo(((Math.tan(ang) * (y - 30) + x) + 19), 30) :
-                        ctx.lineTo(((Math.tan(ang) * (y - 30) + x) + 32), 30);
-                //设置文字，横下上方
-                ctx.fillText(num, (Math.tan(ang) * (y - 30) + x + 3), 27);
-
-            } else {
-                ctx.lineTo((Math.tan(ang) * (350 - y) + x), 364 + 28);
-                //如果数字大于10,则出于美观，延长下划线
-                num < 10 ?
-                        ctx.lineTo(((Math.tan(ang) * (350 - y) + x) + 19), 364 + 28) :
-                        ctx.lineTo(((Math.tan(ang) * (350 - y) + x) + 32), 364 + 28);
-                //设置文字，横线下方
-                ctx.fillText(num, (Math.tan(ang) * (350 - y) + x + 3), 362 + 28);
-
-            }
-            console.log(ctx.textBaseline);
-            console.log(num, (Math.tan(ang) * (350 - y) + x + 3), 362 + 28);
-            //console.log(Math.tan(45*2*Math.PI/360));
-            //console.log(Math.tan(ang)*(y-30),350);
-            num++;
-            console.log(Math.floor(mousePos.x), Math.floor(mousePos.y));
-            ctx.stroke();
-        }, true);
-
-
-//Get Mouse Position
-function getMousePos(c, evt) {
-    var rect = c.getBoundingClientRect();
-    return {
-        x: evt.clientX - rect.left * (c.width / rect.width),
-        y: evt.clientY - rect.top * (c.height / rect.height)
-    }
-}
-//
-function canTxt(x, y) {
-    var oTxt = document.getElementById('input-txt').value;
-    ctxConfig([
-        ['lineWidth', '5'],
-        ['font', '100px 方正超粗黑简体'],
-        ['strokeStyle', 'black'],
-        ['textBaseline', 'middle'],
-        ['fillStyle', 'white']
-    ]);
-
-    ctx.strokeText(oTxt, 54, 204);
-    ctx.fillText(oTxt, 54, 204);
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
     ctx.lineWidth = 2;
-}
-//large rect
-$(document).ready(function () {
-    $(".btn-bdr").click(function () {
-        $(".border-choose").hide();
-        $(".sign-choose").show();
+    var num = 1;
+    ctx.font = "25px Arial";
+    //设置倾角15度，然后计算出弧度
+    var ang = (15 * 2 * Math.PI) / 360;
+    function base(arr) {
+        for (k in arr) {
+            key = arr[k][0];
+            value = arr[k][1];
+            if (key === 'lineTo') {
+                ctx.lineTo(value[0], value[1]);
+            } else if (key === 'arc') {
+                ctx.arc(value[0], value[1], value[2], value[3], value[4], value[5]);
+            } else if (key === 'moveTo') {
+                ctx.moveTo(value[0], value[1]);
+            } else if (key === 'rect') {
+                ctx.rect(value[0], value[1], value[2], value[3]);
+            }
+        }
+        ctx.stroke();
+    }
+    function baseMir(arr, mirror) {
+        for (k in arr) {
+            key = arr[k][0];
+            value = arr[k][1];
+            if (key === 'lineTo') {
+                ctx.lineTo(2 * mirror - value[0], value[1]);
+            } else if (key === 'arc') {
+                ctx.arc(
+                    2 * mirror - value[0],
+                    value[1],
+                    value[2],
+                    -Math.PI-value[3],
+                    -value[4] - Math.PI,
+                    !value[5]
+                    );
+                console.log(value[0], value[1], value[2], value[3], value[4], value[5]);
+                console.log(2 * mirror - value[0], value[1], value[2], -Math.PI-value[3], -value[4] - Math.PI, !value[5]);
+            } else if (key === 'moveTo') {
+                ctx.moveTo(2 * mirror - value[0], value[1]);
+            }
+        }
+        ctx.stroke();
+    }
+    function ctxConfig(arr) {
+        for (k in arr) {
+            key = arr[k][0];
+            value = arr[k][1];
+            switch (key) {
+                case 'lineWidth':
+                    ctx.lineWidth = value;
+                    break;
+                case 'font':
+                    ctx.font = value;
+                    break;
+                case 'fillStyle':
+                    ctx.fillStyle = value;
+                    break;
+                case 'textBaseline':
+                    ctx.textBaseline = value;
+                    break;
+                case 'strokeStyle':
+                    ctx.strokeStyle = value;
+                    break;
+                case 'textBaseline':
+                    ctx.textBaseline = value;
+                    break;
+                case 'fillStyle':
+                    ctx.fillStyle = value;
+                    break;
+            }
+            console.log(arr[k][0]);
+            ctx.key = arr[k][1];
+        }
+    }
+    //polygonal line
+    function polyLine(m, n) {
+        base([['lineTo', [m, n]]]);
+        n
+        ctx.lineTo((Math.tan(ang) * (y - 30) + x), 30);
+        //如果数字大于10,则出于美观，延长下划线
+        num < 10 ?
+                ctx.lineTo(((Math.tan(ang) * (y - 30) + x) + 19), 30) :
+                ctx.lineTo(((Math.tan(ang) * (y - 30) + x) + 32), 30);
+        //设置文字，横下上方
+        ctx.fillText(num, (Math.tan(ang) * (y - 30) + x + 3), 27);
+    }
+    //report the mouse position on click
+    c.addEventListener("click",
+            function (evt) {
+                var mousePos = getMousePos(c, evt);
+                //alert(mousePos.x +',' + mousePos.y);
+                var x = Math.floor(mousePos.x);
+                var y = Math.floor(mousePos.y);
+                ctxConfig([
+                    ['lineWidth', '1'],
+                    ['font', '25px Arial'],
+                    ['fillStyle', 'black'],
+                    ['textBaseline', 'alphabetic']
+                ]);
+                ctx.moveTo(Math.floor(mousePos.x), Math.floor(mousePos.y));
+                //确定引线方向
+                if ((y - 190) < 0) {
+                    ctx.lineTo((Math.tan(ang) * (y - 30) + x), 30);
+                    //如果数字大于10,则出于美观，延长下划线
+                    num < 10 ?
+                            ctx.lineTo(((Math.tan(ang) * (y - 30) + x) + 19), 30) :
+                            ctx.lineTo(((Math.tan(ang) * (y - 30) + x) + 32), 30);
+
+                    //设置文字，横下上方
+                    ctx.fillText(num, (Math.tan(ang) * (y - 30) + x + 3), 27);
+                } else {
+                    ctx.lineTo((Math.tan(ang) * (350 - y) + x), 392);
+                    //如果数字大于10,则出于美观，延长下划线
+                    num < 10 ?
+                            ctx.lineTo(((Math.tan(ang) * (350 - y) + x) + 19), 392) :
+                            ctx.lineTo(((Math.tan(ang) * (350 - y) + x) + 32), 392);
+                    //设置文字，横线下方
+                    ctx.fillText(num, (Math.tan(ang) * (350 - y) + x + 3), 390);
+                }
+                console.log(ctx.textBaseline);
+                console.log(num, (Math.tan(ang) * (350 - y) + x + 3), 362 + 28);
+                //console.log(Math.tan(45*2*Math.PI/360));
+                //console.log(Math.tan(ang)*(y-30),350);
+                num++;
+                console.log(Math.floor(mousePos.x), Math.floor(mousePos.y));
+                ctx.stroke();
+            }, true);
+    //Get Mouse Position
+    function getMousePos(c, evt) {
+        var rect = c.getBoundingClientRect();
+        return {
+            x: evt.clientX - rect.left * (c.width / rect.width),
+            y: evt.clientY - rect.top * (c.height / rect.height)
+        }
+    }
+    //
+    function canTxt(x, y) {
+        var oTxt = document.getElementById('txtInput').value;
+        ctxConfig([
+            ['lineWidth', '5'],
+            ['font', '100px 黑体'],
+            ['strokeStyle', 'black'],
+            ['textBaseline', 'middle'],
+            ['fillStyle', 'white']
+        ]);
+        ctx.strokeText(oTxt, 54, 204);
+        ctx.fillText(oTxt, 54, 204);
+        ctx.lineWidth = 2;
+    }
+    //large rect
+    $(document).ready(function () {
+        $(".btn-bdr").click(function () {
+            $(".border-choose").hide();
+            $(".sign-choose").show();
+        });
     });
-});
-
-function rectBorder() {
-    $('sign-choose').show();
-    $('border-choose').hide();
-    ctx.rect(40, 40, 890, 328);
-    ctx.stroke();
-}
-
-function smallRec(m, n) {
-    ctx.rect(-14 + m, -14 + n, 339, 328);
-    ctx.stroke();
-}
-//这里还有个中间大小的框
-function cirRect(x, y) {
-    ctx.arc(
-            480, 204,
-            Math.sqrt(
-                    (311 * 311 / 4 + 150 * 150)
-            ) + 14,
-            0, 2 * Math.PI, false);
-    ctx.stroke();
-    //need to scale
-}
-
-function arrow(x, y) {
-    base([
-        ['moveTo', [54 + x, 190 + y]],
-        ['lineTo', [130 + x, 130 + y]],
-        ['lineTo', [188 + x, 130 + y]],
-        ['lineTo', [134 + x, 174 + y]],
-        ['lineTo', [280 + x, 174 + y]],
-        ['lineTo', [280 + x, 206 + y]],
-        ['lineTo', [134 + x, 206 + y]],
-        ['lineTo', [188 + x, 250 + y]],
-        ['lineTo', [130 + x, 250 + y]],
-        ['lineTo', [54 + x, 190 + y]]
-    ]);
-}
-//这个arrow正常也应该是初始化的坐标，但是由于最开始未考虑到parameter，所以暂时这样，计算会费些事情了，对于强迫的我真是闹心。。。
-function rightArrow(x, y) {
-    base([
-        ['moveTo', [916 + x, 190 + y]],
-        ['lineTo', [840 + x, 130 + y]],
-        ['lineTo', [792 + x, 130 + y]],
-        ['lineTo', [844 + x, 174 + y]],
-        ['lineTo', [690 + x, 174 + y]],
-        ['lineTo', [690 + x, 206 + y]],
-        ['lineTo', [844 + x, 206 + y]],
-        ['lineTo', [792 + x, 250 + y]],
-        ['lineTo', [840 + x, 250 + y]],
-        ['lineTo', [916 + x, 190 + y]]
-    ]);
-}
-
-
-function signB(m, n) {
-    //door
-    ctx.moveTo(0 + m, 0 + n);
-    ctx.lineTo(0 + m, 300 + n);
-    ctx.lineTo(104 + m, 300 + n);
-    ctx.lineTo(74 + m, 270 + n);
-    ctx.lineTo(74 + m, 20 + n);
-    ctx.lineTo(247 + m, 20 + n);
-    ctx.lineTo(247 + m, 194 + n);
-    ctx.lineTo(256 + m, 194 + n);
-    ctx.arc(
-            256 + m, 211 + n,
-            17,
-            -0.5 * Math.PI,
-            0.5 * Math.PI,
-            false
-    );
-    ctx.lineTo(247 + m, 228 + n);
-    ctx.lineTo(247 + m, 270 + n);
-    ctx.lineTo(280 + m, 300 + n);
-    ctx.lineTo(311 + m, 300 + n);
-    ctx.lineTo(311 + m, 0 + n);
-    ctx.lineTo(0 + m, 0 + n);
-
-    //head
-    ctx.moveTo(151 + m, 57 + n);
-    ctx.arc(131 + m, 57 + n, 20, 0, 2 * Math.PI);
-    //body
-    ctx.moveTo(74 + m, 128 + n);
-    ctx.lineTo(96 + m, 128 + n);
-    ctx.lineTo(129 + m, 84 + n);
-    ctx.lineTo(210 + m, 84 + n);
-    ctx.lineTo(239 + m, 128 + n);
-    ctx.arc(
-            239 - Math.sqrt(196 / (44 * 44 + 29 * 29)) * 22 + m,
-            Math.sqrt(196 / (44 * 44 + 29 * 29)) * 29 * 0.5 + 128 + n,
-            7,
-            -Math.atan(29 / 44),
-            Math.atan(44 / 29) + 0.5 * Math.PI,
-            false
-    );
-    ctx.lineTo(200 + m, 98 + n);
-
-    ctx.moveTo(74 + m, 140 + n);
-    ctx.lineTo(103 + m, 140 + n);
-    ctx.lineTo(122 + m, 114 + n);
-    ctx.lineTo(128 + m, 114 + n);
-    ctx.lineTo(144 + m, 158 + n);
-    ctx.lineTo(96 + m, 254 + n);
-    //foot
-    ctx.moveTo(
-            96 + 8 * Math.sqrt(5) + m,
-            254 + 4 * Math.sqrt(5) + n
-    );
-    ctx.arc(
-            96 + 4 * Math.sqrt(5) + m,
-            254 + 2 * Math.sqrt(5) + n,
-            10,
-            90 * 2 * Math.PI / 360 - Math.atan(2),
-            180 * 2 * Math.PI / 360 + 90 * 2 * Math.PI / 360 - Math.atan(2),
-            false
-    );
-
-    //continue leg
-    ctx.moveTo(
-            96 + 8 * Math.sqrt(5) + m,
-            254 + 4 * Math.sqrt(5) + n
-    );
-    ctx.lineTo(168 + m, 158 + n);
-    ctx.lineTo(173 + m, 158 + n);
-    ctx.lineTo(178 + m, 201 + n);
-    //这里本应该是个圆弧过度，但是太麻烦了直接直角了= =#
-    ctx.lineTo((63 * 5 / 43) + 173 + m, 221 + n);
-    ctx.lineTo(256 + m, 221 + n);
-    ctx.arc(
-            256 + m, 211 + n,
-            10,
-            0.5 * Math.PI,
-            -0.5 * Math.PI,
-            true
-    );
-    ctx.lineTo(199 + m, 201 + n);
-    //arm right
-    ctx.moveTo(200 + m, 98 + n);
-    ctx.lineTo(170 + m, 98 + n);
-    ctx.lineTo(194 + m, 158 + n);
-    ctx.lineTo(199 + m, 201 + n);
-    //倒影
-    ctx.moveTo(122 + m, 300 + n);
-    ctx.lineTo(122 + 20 * Math.sqrt(2) + m, 300 + n);
-    ctx.lineTo(122 + 1.5 * Math.sqrt(2) + m, 300 - 20 * Math.sqrt(2) + 1.5 * Math.sqrt(2) + n);
-    ctx.arc(
-            122 - 5 * Math.sqrt(2) + 1.5 * Math.sqrt(2) + m,
-            300 - 15 * Math.sqrt(2) + 1.5 * Math.sqrt(2) + n,
-            10,
-            -45 * 2 * Math.PI / 360,
-            135 * 2 * Math.PI / 360,
-            true
-    );
-    ctx.lineTo(122 + m, 300 + n);
-
-    ctx.stroke();
-}
-function signB2(m, n) {
-    var img=new Image();
-    img.src="img/toRight.png";
-    img.onload = function(){ctx.drawImage(img, m, n, 311, 300)};
-}
-
+    function rectBorder() {
+        $('sign-choose').show();
+        $('border-choose').hide();
+        ctx.rect(40, 40, 890, 328);
+        ctx.stroke();
+    }
+    function smallRec(m, n) {
+        ctx.rect(-14 + m, -14 + n, 339, 328);
+        ctx.stroke();
+    }
+    //这里还有个中间大小的框
+    function cirRect(x, y) {
+        ctx.arc(
+                480, 204,
+                Math.sqrt(
+                        (311 * 311 / 4 + 150 * 150)
+                ) + 14,
+                0, 2 * Math.PI, false);
+        ctx.stroke();
+        //need to scale
+    }
+    function leftArrow(x, y) {
+        base([
+            ['moveTo', [54 + x, 190 + y]],
+            ['lineTo', [130 + x, 130 + y]],
+            ['lineTo', [188 + x, 130 + y]],
+            ['lineTo', [134 + x, 174 + y]],
+            ['lineTo', [280 + x, 174 + y]],
+            ['lineTo', [280 + x, 206 + y]],
+            ['lineTo', [134 + x, 206 + y]],
+            ['lineTo', [188 + x, 250 + y]],
+            ['lineTo', [130 + x, 250 + y]],
+            ['lineTo', [54 + x, 190 + y]]
+        ]);
+    }
+    //这个arrow正常也应该是初始化的坐标，但是由于最开始未考虑到parameter，所以暂时这样，计算会费些事情了，对于强迫的我真是闹心。。。
+    function rightArrow(x, y) {
+        base([
+            ['moveTo', [916 + x, 190 + y]],
+            ['lineTo', [840 + x, 130 + y]],
+            ['lineTo', [792 + x, 130 + y]],
+            ['lineTo', [844 + x, 174 + y]],
+            ['lineTo', [690 + x, 174 + y]],
+            ['lineTo', [690 + x, 206 + y]],
+            ['lineTo', [844 + x, 206 + y]],
+            ['lineTo', [792 + x, 250 + y]],
+            ['lineTo', [840 + x, 250 + y]],
+            ['lineTo', [916 + x, 190 + y]]
+        ]);
+    }
+    //反转leftArrow
+    function mirrorArror(x, y, mirror) {
+        baseMir([
+            ['moveTo', [54 + x, 190 + y]],
+            ['lineTo', [130 + x, 130 + y]],
+            ['lineTo', [188 + x, 130 + y]],
+            ['lineTo', [134 + x, 174 + y]],
+            ['lineTo', [280 + x, 174 + y]],
+            ['lineTo', [280 + x, 206 + y]],
+            ['lineTo', [134 + x, 206 + y]],
+            ['lineTo', [188 + x, 250 + y]],
+            ['lineTo', [130 + x, 250 + y]],
+            ['lineTo', [54 + x, 190 + y]]
+        ], mirror);
+    }
+    //B1 sign
+    function signB1(x, y) {
+        base([
+            //door
+            ['moveTo', [0 + x, 0 + y]],
+            ['lineTo', [0 + x, 300 + y]],
+            ['lineTo', [104 + x, 300 + y]],
+            ['lineTo', [74 + x, 270 + y]],
+            ['lineTo', [74 + x, 20 + y]],
+            ['lineTo', [247 + x, 20 + y]],
+            ['lineTo', [247 + x, 194 + y]],
+            ['lineTo', [256 + x, 194 + y]],
+            ['arc', [
+                256 + x,
+                211 + y,
+                17,
+                -0.5 * Math.PI,
+                0.5 * Math.PI,
+                false
+            ]],
+            ['lineTo', [247 + x, 228 + y]],
+            ['lineTo', [247 + x, 270 + y]],
+            ['lineTo', [280 + x, 300 + y]],
+            ['lineTo', [311 + x, 300 + y]],
+            ['lineTo', [311 + x, 0 + y]],
+            ['lineTo', [0 + x, 0 + y]],
+            //head
+            ['moveTo', [151 + x, 57 + y]],
+            ['arc', [
+                131 + x,
+                57 + y,
+                20,
+                0,
+                2 * Math.PI,
+                false
+            ]],
+            //body
+            ['moveTo', [74 + x, 128 + y]],
+            ['lineTo', [96 + x, 128 + y]],
+            ['lineTo', [129 + x, 84 + y]],
+            ['lineTo', [210 + x, 84 + y]],
+            ['lineTo', [239 + x, 128 + y]],
+            ['arc', [
+                239 - Math.sqrt(196 / (44 * 44 + 29 * 29)) * 22 + x,
+                Math.sqrt(196 / (44 * 44 + 29 * 29)) * 29 * 0.5 + 128 + y,
+                7,
+                -Math.atan(29 / 44),
+                Math.atan(44 / 29) + 0.5 * Math.PI,
+                false
+            ]],
+            ['lineTo', [200 + x, 98 + y]],
+            ['moveTo', [74 + x, 140 + y]],
+            ['lineTo', [103 + x, 140 + y]],
+            ['lineTo', [122 + x, 114 + y]],
+            ['lineTo', [128 + x, 114 + y]],
+            ['lineTo', [144 + x, 158 + y]],
+            ['lineTo', [96 + x, 254 + y]],
+            //foot
+            ['moveTo', [
+                96 + 8 * Math.sqrt(5) + x,
+                254 + 4 * Math.sqrt(5) + y
+            ]],
+            ['arc', [
+                96 + 4 * Math.sqrt(5) + x,
+                254 + 2 * Math.sqrt(5) + y,
+                10,
+                90 * 2 * Math.PI / 360 - Math.atan(2),
+                180 * 2 * Math.PI / 360 + 90 * 2 * Math.PI / 360 - Math.atan(2),
+                false
+            ]],
+            //continue leg
+            ['moveTo', [
+                96 + 8 * Math.sqrt(5) + x,
+                254 + 4 * Math.sqrt(5) + y
+            ]],
+            ['lineTo', [168 + x, 158 + y]],
+            ['lineTo', [173 + x, 158 + y]],
+            ['lineTo', [178 + x, 201 + y]],
+            //这里本应该是个圆弧过度，但是太麻烦了直接直角了= =#
+            ['lineTo', [(63 * 5 / 43) + 173 + x, 221 + y]],
+            ['lineTo', [256 + x, 221 + y]],
+            ['arc', [
+                256 + x, 211 + y,
+                10,
+                0.5 * Math.PI,
+                -0.5 * Math.PI,
+                true
+            ]],
+            ['lineTo', [199 + x, 201 + y]],
+            //arm right
+            ['moveTo', [200 + x, 98 + y]],
+            ['lineTo', [170 + x, 98 + y]],
+            ['lineTo', [194 + x, 158 + y]],
+            ['lineTo', [199 + x, 201 + y]],
+            //倒影
+            ['moveTo', [122 + x, 300 + y]],
+            ['lineTo', [122 + 20 * Math.sqrt(2) + x, 300 + y]],
+            ['lineTo', [122 + 1.5 * Math.sqrt(2) + x, 300 - 20 * Math.sqrt(2) + 1.5 * Math.sqrt(2) + y]],
+            ['arc', [
+                122 - 5 * Math.sqrt(2) + 1.5 * Math.sqrt(2) + x,
+                300 - 15 * Math.sqrt(2) + 1.5 * Math.sqrt(2) + y,
+                10,
+                -45 * 2 * Math.PI / 360,
+                135 * 2 * Math.PI / 360,
+                true
+            ]],
+            ['lineTo', [122 + x, 300 + y]]
+        ]);
+    }
+    //B2 sign , B1's mirror
+    function signB2(x, y, mirror) {
+        baseMir([
+            //door
+            ['moveTo', [0 + x, 0 + y]],
+            ['lineTo', [0 + x, 300 + y]],
+            ['lineTo', [104 + x, 300 + y]],
+            ['lineTo', [74 + x, 270 + y]],
+            ['lineTo', [74 + x, 20 + y]],
+            ['lineTo', [247 + x, 20 + y]],
+            ['lineTo', [247 + x, 194 + y]],
+            ['lineTo', [256 + x, 194 + y]],
+            //门
+            ['arc', [
+                256 + x, 211 + y,
+                17,
+                -0.5 * Math.PI,
+                0.5 * Math.PI,
+                false
+            ]],
+            ['lineTo', [247 + x, 228 + y]],
+            ['lineTo', [247 + x, 270 + y]],
+            ['lineTo', [280 + x, 300 + y]],
+            ['lineTo', [311 + x, 300 + y]],
+            ['lineTo', [311 + x, 0 + y]],
+            ['lineTo', [0 + x, 0 + y]],
+            //head
+            ['moveTo', [151 + x, 57 + y]],
+            ['arc', [131 + x,
+                57 + y,
+                20, 
+                0,
+                2 * Math.PI,
+                false
+            ]],
+            //body
+            ['moveTo', [74 + x, 128 + y]],
+            ['lineTo', [96 + x, 128 + y]],
+            ['lineTo', [129 + x, 84 + y]],
+            ['lineTo', [210 + x, 84 + y]],
+            ['lineTo', [239 + x, 128 + y]],
+            //手
+            ['arc', [
+                239 - Math.sqrt(196 / (44 * 44 + 29 * 29)) * 22 + x,
+                Math.sqrt(196 / (44 * 44 + 29 * 29)) * 29 * 0.5 + 128 + y,
+                7,
+                -Math.atan(29 / 44),
+                Math.atan(44 / 29) + 0.5 * Math.PI,
+                false
+            ]],
+            ['lineTo', [200 + x, 98 + y]],
+            ['moveTo', [74 + x, 140 + y]],
+            ['lineTo', [103 + x, 140 + y]],
+            ['lineTo', [122 + x, 114 + y]],
+            ['lineTo', [128 + x, 114 + y]],
+            ['lineTo', [144 + x, 158 + y]],
+            ['lineTo', [96 + x, 254 + y]],
+            //foot
+            ['moveTo', [
+                96 + 8 * Math.sqrt(5) + x,
+                254 + 4 * Math.sqrt(5) + y
+            ]],
+            ['arc', [
+                96 + 4 * Math.sqrt(5) + x,
+                254 + 2 * Math.sqrt(5) + y,
+                10,
+                90 * 2 * Math.PI / 360 - Math.atan(2),
+                180 * 2 * Math.PI / 360 + 90 * 2 * Math.PI / 360 - Math.atan(2),
+                false
+            ]],
+            //continue leg
+            ['moveTo', [
+                96 + 8 * Math.sqrt(5) + x,
+                254 + 4 * Math.sqrt(5) + y
+            ]],
+            ['lineTo', [168 + x, 158 + y]],
+            ['lineTo', [173 + x, 158 + y]],
+            ['lineTo', [178 + x, 201 + y]],
+            //这里本应该是个圆弧过度，但是太麻烦了直接直角了= =#
+            ['lineTo', [(63 * 5 / 43) + 173 + x, 221 + y]],
+            ['lineTo', [256 + x, 221 + y]],
+            //脚
+            ['arc', [
+                256 + x, 211 + y,
+                10,
+                0.5 * Math.PI,
+                -0.5 * Math.PI,
+                true
+            ]],
+            ['lineTo', [199 + x, 201 + y]],
+            //arm right
+            ['moveTo', [200 + x, 98 + y]],
+            ['lineTo', [170 + x, 98 + y]],
+            ['lineTo', [194 + x, 158 + y]],
+            ['lineTo', [199 + x, 201 + y]],
+            //脚倒影
+            ['moveTo', [122 + x, 300 + y]],
+            ['lineTo', [122 + 20 * Math.sqrt(2) + x, 300 + y]],
+            ['lineTo', [122 + 1.5 * Math.sqrt(2) + x, 300 - 20 * Math.sqrt(2) + 1.5 * Math.sqrt(2) + y]],
+            ['arc', [
+                122 - 5 * Math.sqrt(2) + 1.5 * Math.sqrt(2) + x,
+                300 - 15 * Math.sqrt(2) + 1.5 * Math.sqrt(2) + y,
+                10,
+                -45 * 2 * Math.PI / 360,
+                135 * 2 * Math.PI / 360,
+                true
+            ]],
+            ['lineTo', [122 + x, 300 + y]]
+        ], mirror);
+    }
 </script>
 
 </body>
