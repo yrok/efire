@@ -1,7 +1,8 @@
 # efire
 ###
 This is used to point out the point which is out of the standard of the Identification of fire emergency lighting。 
-
+这个页面用来标记出消防应急灯具不合格点。目前可以制作除双色灯以外的所有常见消防标识灯具示意图。
+春节前更新完毕双色灯功能。
 ----------------
 ####NOTE
 1. 复习了扔了N年的三角函数，还好以前基础扎实，哈哈。
