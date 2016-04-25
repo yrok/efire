@@ -67,7 +67,7 @@ h1 {
 /*控制点容器*/
 
 .conpt-box {
-  margin: auto;
+  margin: 0 auto;
   width: 890px;
   height: 280px;
   display: -webkit-box;
@@ -93,7 +93,6 @@ h1 {
 .conpt-btn {
   margin: auto auto;
   color: rgba(5, 5, 5, 0.2);
-  ;
   font-size: 30px;
   font-weight: bolder;
   width: 270px;
@@ -112,7 +111,7 @@ h1 {
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
-  /*background-color: yellow;*/
+  /*background-color: rgba(255, 255, 0, 0.5);;*/
 }
 .shape-btn {
   dispaly: table-cell;

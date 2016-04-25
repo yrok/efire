@@ -32,7 +32,7 @@
         </ol>
         <div class="carousel-inner">
           <div onclick=rectBorder() class="item active">
-            <img alt="B4" src="img/b4.jpg" />
+            <img alt="B4" src="img/b4.jpg" class="b4-img" />
             <div class="carousel-caption">
               <h4>
               B4类
@@ -65,7 +65,7 @@
             </div>
           </div>
           <div class="item">
-            <img alt="地埋圆" src="img/circular.jpg" />
+            <img alt="地埋圆" onclick=cirRect(330,54) src="img/circular.jpg" />
             <div class="carousel-caption">
               <h4>
               地埋类（圆形）
@@ -76,7 +76,7 @@
             </div>
           </div>
           <div class="item">
-            <img alt="角形" src="img/special.jpg" />
+            <img alt="角形" onclick=double() src="img/special.jpg" />
             <div class="carousel-caption">
               <h4>
               角形标志灯
@@ -113,7 +113,7 @@
     </div>
 
   </div>
-
+  <!-- 控制点的布局采取由左至右，由上而下的顺序 -->
   <script type="text/html" class="template b4-tmpl">
     <div class="conpt-btn b4-box">
       <div class="shape-btn">
@@ -202,92 +202,96 @@
       </div>
     </div>
   </script>
-
+  <!-- b1b5 -->
   <script type="text/html" class="template b1b5-tmpl">
-    <div class="conpt-btn">
+    <div class="conpt-btn b1b5-box">
       <div class="shape-btn">
         <span id="conpt1" class="plus-sign">+</span>
-        <button>←</button>
-        <input type="text">
+        <button onClick=leftArrow(140,-44)>←</button>
+        <input type="text" class="txtInput">
         <button class="txt-btn">文字</button>
-        <button class="confirm-btn">确定</button>
+        <button class="confirm-btn" onClick=canTxt(270,-65,270)>确定</button>
       </div>
     </div>
-    <div class="conpt-btn">
+    <div class="conpt-btn b1b5-box">
       <div class="shape-btn">
         <span id="conpt2" class="plus-sign">+</span>
-        <button>←</button>
-        <button>→</button>
+        <button onClick=leftArrow(318,-44)>←</button>
+        <button onClick=mirrorArror(318,-44,485)>→</button>
         <input type="text">
         <button class="txt-btn">文字</button>
-        <button class="confirm-btn">确定</button>
+        <button class="confirm-btn" onClick=canTxt(431,-65,270)>确定</button>
       </div>
     </div>
-    <div class="conpt-btn">
+    <div class="conpt-btn b1b5-box">
       <div class="shape-btn">
         <span id="conpt3" class="plus-sign">+</span>
-        <button>→</button>
+        <button onClick=mirrorArror(160,-44,485)>→</button>
         <input type="text">
         <button class="txt-btn">文字</button>
-        <button class="confirm-btn">确定</button>
+        <button class="confirm-btn" onClick=canTxt(570,-65,270)>确定</button>
       </div>
     </div>
-    <div class="conpt-btn">
+    <div class="conpt-btn b1b5-box">
       <div class="shape-btn">
         <span id="conpt4" class="plus-sign">+</span>
-        <button>←</button>
-        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <button onClick=leftArrow(140,14)>←</button>
+        <button onClick=signB1(195,54)>B1</button>
+        <button onclick=signB2(465,54,485)>B2</button>
+        <textarea id="txtInput" cols="30" rows="10"></textarea>
         <button class="txt-btn">文字</button>
-        <button class="confirm-btn">确定</button>
+        <button class="confirm-btn" onClick=canTxt(270,0,200)>确定</button>
       </div>
     </div>
-    <div class="conpt-btn">
+    <div class="conpt-btn b1b5-box">
       <div class="shape-btn">
         <span id="conpt5" class="plus-sign">+</span>
-        <button>←</button>
-        <button>→</button>
-        <button>B1</button>
-        <button>B2</button>
-        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <button onClick=leftArrow(318,14)>←</button>
+        <button onClick=mirrorArror(318,14,485)>→</button>
+        <button onClick=signB1(330,54)>B1</button>
+        <button onclick=signB2(330,54,485)>B2</button>
+        <textarea cols="30" rows="10"></textarea>
         <button class="txt-btn">文字</button>
-        <button class="confirm-btn">确定</button>
+        <button class="confirm-btn" onClick=canTxt(431,0,270)>确定</button>
       </div>
     </div>
-    <div class="conpt-btn">
+    <div class="conpt-btn b1b5-box">
       <div class="shape-btn">
         <span id="conpt6" class="plus-sign">+</span>
-        <button>→</button>
-        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <button onClick=mirrorArror(160,14,485)>→</button>
+        <button onClick=signB1(445,54)>B1</button>
+        <button onclick=signB2(215,54,485)>B2</button>
+        <textarea cols="30" rows="10"></textarea>
         <button class="txt-btn">文字</button>
-        <button class="confirm-btn">确定</button>
+        <button class="confirm-btn" onClick=canTxt(570,0,220)>确定</button>
       </div>
     </div>
-    <div class="conpt-btn">
+    <div class="conpt-btn b1b5-box">
       <div class="shape-btn">
         <span id="conpt7" class="plus-sign">+</span>
-        <button>←</button>
+        <button onClick=leftArrow(140,74)>←</button>
         <input type="text">
         <button class="txt-btn">文字</button>
-        <button class="confirm-btn">确定</button>
+        <button class="confirm-btn" onClick=canTxt(270,90,270)>确定</button>
       </div>
     </div>
-    <div class="conpt-btn">
+    <div class="conpt-btn b1b5-box">
       <div class="shape-btn">
         <span id="conpt8" class="plus-sign">+</span>
-        <button>←</button>
-        <button>→</button>
+        <button onClick=leftArrow(318,74)>←</button>
+        <button onClick=mirrorArror(318,74,485)>→</button>
         <input type="text">
         <button class="txt-btn">文字</button>
-        <button class="confirm-btn">确定</button>
+        <button class="confirm-btn" onClick=canTxt(431,90,270)>确定</button>
       </div>
     </div>
-    <div class="conpt-btn">
+    <div class="conpt-btn b1b5-box">
       <div class="shape-btn">
         <span id="conpt9" class="plus-sign">+</span>
-        <button>→</button>
+        <button onClick=mirrorArror(160,74,485)>→</button>
         <input type="text">
         <button class="txt-btn">文字</button>
-        <button class="confirm-btn">确定</button>
+        <button class="confirm-btn" onClick=canTxt(570,90,270)>确定</button>
       </div>
     </div>
   </script>
@@ -295,57 +299,76 @@
 
   <script type="text/html" class="template b5-tmpl">
     <div class="conpt-btn">
-      <div class="shape-btn"><span id="conpt1" class="plus-sign"></span></div>
-    </div>
-    <div class="conpt-btn">
       <div class="shape-btn">
         <span id="conpt2" class="plus-sign">+</span>
-        <button>←</button>
-        <button>→</button>
-        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <button onClick=leftArrow(318,-52)>←</button>
+        <button onClick=mirrorArror(318,-52,485)>→</button>
+        <input type="text">
         <button class="txt-btn">文字</button>
-        <button class="confirm-btn">确定</button>
+        <button class="confirm-btn" onClick=canTxt(431,-65,270)>确定</button>
       </div>
-    </div>
-    <div class="conpt-btn">
-      <div class="shape-btn"><span id="conpt3" class="plus-sign"></span></div>
-    </div>
-    <div class="conpt-btn">
-      <div class="shape-btn"><span id="conpt4" class="plus-sign"></span></div>
     </div>
     <div class="conpt-btn">
       <div class="shape-btn">
         <span id="conpt5" class="plus-sign">+</span>
-        <button>←</button>
-        <button>→</button>
-        <button>B1</button>
-        <button>B2</button>
-        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <button onClick=leftArrow(318,14)>←</button>
+        <button onClick=mirrorArror(318,14,485)>→</button>
+        <button onClick=signB1(330,54)>B1</button>
+        <button onclick=signB2(330,54,485)>B2</button>
+        <textarea cols="30" rows="10"></textarea>
         <button class="txt-btn">文字</button>
-        <button class="confirm-btn">确定</button>
+        <button class="confirm-btn" onClick=canTxt(431,0,270)>确定</button>
       </div>
-    </div>
-    <div class="conpt-btn">
-      <div class="shape-btn"><span id="conpt6" class="plus-sign"></span></div>
-    </div>
-    <div class="conpt-btn">
-      <div class="shape-btn"><span id="conpt7" class="plus-sign"></span></div>
     </div>
     <div class="conpt-btn">
       <div class="shape-btn">
         <span id="conpt8" class="plus-sign">+</span>
-        <button>←</button>
-        <button>→</button>
-        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <button onClick=leftArrow(318,78)>←</button>
+        <button onClick=mirrorArror(318,78,485)>→</button>
+        <input type="text">
         <button class="txt-btn">文字</button>
-        <button class="confirm-btn">确定</button>
+        <button class="confirm-btn" onClick=canTxt(431,90,270)>确定</button>
       </div>
     </div>
-    <div class="conpt-btn">
-      <div class="shape-btn"><span id="conpt9" class="plus-sign"></span></div>
     </div>
   </script>
 
+  <script type="text/html" class="template b5cir-tmpl">
+    <div class="conpt-btn">
+      <div class="shape-btn">
+        <span id="conpt2" class="plus-sign">+</span>
+        <button onClick=leftArrow(318,-52)>←</button>
+        <button onClick=mirrorArror(318,-52,485)>→</button>
+        <input type="text">
+        <button class="txt-btn">文字</button>
+        <button class="confirm-btn" onClick=canTxt(431,-65,270)>确定</button>
+      </div>
+    </div>
+    <div class="conpt-btn">
+      <div class="shape-btn">
+        <span id="conpt5" class="plus-sign">+</span>
+        <button onClick=leftArrow(318,14)>←</button>
+        <button onClick=mirrorArror(318,14,485)>→</button>
+        <button onClick=scaleB1(354,84)>B1</button>
+        <button onclick=scaleB2(365,84,485)>B2</button>
+        <textarea cols="30" rows="10"></textarea>
+        <button class="txt-btn">文字</button>
+        <button class="confirm-btn" onClick=canTxt(431,0,270)>确定</button>
+      </div>
+    </div>
+    <div class="conpt-btn">
+      <div class="shape-btn">
+        <span id="conpt8" class="plus-sign">+</span>
+        <button onClick=leftArrow(318,78)>←</button>
+        <button onClick=mirrorArror(318,78,485)>→</button>
+        <input type="text">
+        <button class="txt-btn">文字</button>
+        <button class="confirm-btn" onClick=canTxt(431,90,270)>确定</button>
+      </div>
+    </div>
+    </div>
+  </script>
+  <!-- 双b1b5 -->
   <script type="text/html" class="template doubleb1b5-tmpl">
     <div class="conpt-btn">
       <div class="shape-btn">
@@ -433,7 +456,6 @@
         <button class="confirm-btn">确定</button>
       </div>
     </div>
-
     <div class="conpt-btn">
       <div class="shape-btn">
         <span id="conpt10" class="plus-sign">+</span>

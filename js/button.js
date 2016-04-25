@@ -1,14 +1,7 @@
-// large rect
-// $(document).ready(function () {
-//     $(".btn-bdr").click(function () {
-//         $(".border-choose").hide();
-//         $(".sign-choose").show();
-//     });
-// });
+/* below is linter setting,useless comment */
 /* global ctx document $ */
-
-// hahhaha
-// 早上起来，需要对每个点添加方法。
+ /** @author - 李冰
+ */
 $(document).ready(function() {
   // 底部按钮，功能：清除canvas遮罩
   $(".btn-info").click(function() {
@@ -65,12 +58,11 @@ function showBtn() {
 
   // 文字按钮
   $(".txt-btn").click(function() {
-    console.log("txt-btn,here?");
     $(this).hide().siblings("button,span").hide();
     $(this).siblings(".confirm-btn, input, textarea").show();
     $(this).siblings("textarea, input").attr("id", "active-input");
   });
-
+  // 确认按钮功能
   $(".confirm-btn").click(function() {
     console.log("test");
     $(this).parent().children("span").addClass("active-plus"); // 获取当前active span， 这里不能用active-span和bootstrap冲突。
@@ -81,9 +73,6 @@ function showBtn() {
     $(".active-plus").show();
     $(this).hide();
   });
-
-
-
   // mouse leave
   $('.conpt-btn').mouseleave(
     function() {
@@ -98,15 +87,16 @@ function showBtn() {
 
 }
 
-function showMenu() {
-  $('.border-choose').hide();
-  $('.sign-choose').show();
-}
+// function showMenu() {
+//   $('.border-choose').hide();
+//   $('.sign-choose').show();
+// }
 
-
-// 大号边框
+/**
+ *@description 大号边框
+ */
 function rectBorder() {
-  cleanRect();
+  cleanRect(5, 5, 960, 400);
   ctx.beginPath();
   ctx.rect(40, 40, 890, 328);
   ctx.stroke();
@@ -124,14 +114,13 @@ function rectBorder() {
   // 插入html
   $(".conpt-box").html($(".b4-tmpl").html());
   showBtn();
-  //  onclick=leftArrow(0,-44)
 
 }
-
+/* b1b5 function */
 function midRect() {
   cleanRect();
   ctx.beginPath();
-  ctx.rect(180, 40, 592, 328);
+  ctx.rect(180, 40, 590, 328);
   ctx.stroke();
   $(".controlPoint").css({
     "width": "592"
@@ -139,40 +128,108 @@ function midRect() {
   $("conpt-btn").css({
     "width": "160"
   });
+  // 插入html
+  $(".conpt-box").html($(".b1b5-tmpl").html());
+  showBtn();
 }
 
 function smallRect(x, y) {
+  $(".mainBox").css({
+    "display": "block"
+  });
   cleanRect();
   ctx.beginPath();
   ctx.rect(-14 + x, -14 + y, 339, 328);
   ctx.stroke();
+  $(".controlPoint").css({
+    "width": "270","height": "408"
+  });
+  $(".conpt-btn").css({
+    "width": "270"
+  });
+  // 插入html
+  $(".conpt-box").html($(".b5-tmpl").html());
+  showBtn();
 }
-//这里还有个中间大小的框
+// 地埋灯
 function cirRect(x, y) {
-  showMenu();
-  document.getElementById('myCanvas').height = 2 * (Math.sqrt(311 * 311 / 4 + 150 * 150) + 54);
-  var posCircle = (2 * (Math.sqrt(311 * 311 / 4 + 150 * 150) + 54) - 408) / 2;
+  console.log("ok");
+  cleanRect();
+  $(".mainBox").css({
+    "display": "block"
+  });
+  // showMenu();
+  // document.getElementById('myCanvas').height = 2 * (Math.sqrt(311 * 311 / 4 + 150 * 150) + 54);
+  // var posCircle = (2 * (Math.sqrt(311 * 311 / 4 + 150 * 150) + 54) - 408) / 2;
   ctx.beginPath();
+  /* 由于圆形经过缩放，所以设置一个缩放系数k */
+  var k=0.85;
+  ctx.scale(k,k);
   ctx.arc(
-    480, 204 + posCircle,
+    480/k, 204/k,
     Math.sqrt(
       (311 * 311 / 4 + 150 * 150)
     ) + 14,
     0, 2 * Math.PI, false);
   ctx.stroke();
-  //need to scale
+  ctx.scale(1/k,1/k);
+  $(".controlPoint").css({
+    "width": "270","height": "408"
+  });
+  $(".conpt-btn").css({
+    "width": "270"
+  });
+  // 插入html
+  $(".conpt-box").html($(".b5cir-tmpl").html());
+  showBtn();
 }
-// $(".conpt-box .conpt-btn .shape-btn .confirm-btn").click(function(){
-//   var inputTxt = $(this).siblings("input,textarea").text();
-// });
+/* 缩放后的b1标志 */
+function scaleB1(a,b) {
+  var k = 0.8;
+  ctx.scale(k,k);
+  signB1(a/k,b/k);
+  ctx.scale(1/k,1/k);
+}
+/* 缩放后的b2标志 */
+function scaleB2(x, y, mirror) {
+  console.log("testB2");
+  var k = 0.8;
+  ctx.scale(k, k);
+  signB2(x/k, y/k, mirror/k);
+  ctx.scale(1/k, 1/k);
+}
+/* double B1B5 sign */
+function double(){
+  document.getElementById("myCanvas").width = 1260;
+  cleanRect(5, 5, 960, 400);
+  $(".mainBox").css({
+    "display": "block"
+  });
+  ctx.beginPath();
+  // ctx.rect(40, 40, 1180, 328);
+  ctx.rect(40, 40, 570, 328);
+  ctx.rect(650, 40, 570, 328);
+  ctx.stroke();
+  // 插入html
+  $(".conpt-box").html($(".doubleb1b5-tmpl").html());
+  $(".controlPoint, .conpt-box").css({
+    "width": "1260","height": "408"
+  });
+
+  $(".conpt-btn").css({
+    "width": "190"
+  });
+  $(".conpt-btn").css({
+    "height": "70"
+  });
+
+  showBtn();
+}
 //draw txt
 function canTxt(x, y, initwidth) {
   var reg = /\n|\r/g;
   var aTxt;
   aTxt = document.getElementById('active-input').value.split(reg);
-
-
-  console.log(aTxt);
   ctxConfig([
     ['lineWidth', '5'],
     ['font', '65px 黑体'],

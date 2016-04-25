@@ -34,8 +34,6 @@ function baseMir(arr, mirror) {
         value[1],
         value[2], -Math.PI - value[3], -value[4] - Math.PI, !value[5]
       );
-      // console.log(value[0], value[1], value[2], value[3], value[4], value[5]);
-      // console.log(2 * mirror - value[0], value[1], value[2], -Math.PI - value[3], -value[4] - Math.PI, !value[5]);
     } else if (key === 'moveTo') {
       ctx.moveTo(2 * mirror - value[0], value[1]);
     }
@@ -71,8 +69,7 @@ function ctxConfig(arr) {
         ctx.fillStyle = value;
         break;
     }
-    // console.log(arr[k][0]);
-    // ctx.key = arr[k][1];
+
   }
 }
 // **********************************************************************
@@ -111,7 +108,7 @@ function check(value) {
 // 根据边框判断折现和注释位置，并且还是分两点，接近近似角度15,30,45,60,75。next
 // 给各种元素添加事件委托，确定圆形和角形的位置，修改jquery，完善整个项目。坚决不烂尾
 // input 捕获回车
-// 圆形地埋，扩大画布？
+// 圆形地埋，扩大画布？ok
 // 完善菜单添加动画效果。ok
 // 拆分(ok)，webpack打包
 // 引入jq(ok)和bsok
@@ -225,7 +222,7 @@ function strangeShape() {
   alert("这些奇怪的灯还没有解决...");
 }
 
-function cleanRect() {
+function cleanRect(x, y, width, height) {
   ctx.clearRect(5, 5, 960, 400);
 }
 console.log(document.getElementById("single").checked);
