@@ -3,8 +3,13 @@
 This is used to point out the point which is out of the standard of the Identification of fire emergency lighting luminaire。
 这个页面用来标记出消防应急灯具不合格点。目前可以制作除双色灯以外的所有常见消防标识灯具示意图。
 
-####NOTE  
-
+####NOTE
+##### 2016/4/26 update
+1. 完成了各项基本功能
+2. 双色灯引线方法可以切换
+3. 完善了对特殊形状的灯具的支持
+4. 处于性能考虑，不加入过于复杂的动画，下一步完善更为复杂的引线方法
+------
 ##### 2016/4/15 update
 - [x] 用canvas实现各种图案
 - [x] 学习jquery的基本用法
