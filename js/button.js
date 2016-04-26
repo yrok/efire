@@ -1,6 +1,6 @@
 /* below is linter setting,useless comment */
 /* global ctx document $ */
- /** @author - 李冰
+/** @author - 李冰
  */
 $(document).ready(function() {
   // 底部按钮，功能：清除canvas遮罩
@@ -87,15 +87,13 @@ function showBtn() {
 
 }
 
-// function showMenu() {
-//   $('.border-choose').hide();
-//   $('.sign-choose').show();
-// }
+
 
 /**
  *@description 大号边框
  */
 function rectBorder() {
+  caninit();
   cleanRect(5, 5, 960, 400);
   ctx.beginPath();
   ctx.rect(40, 40, 890, 328);
@@ -109,7 +107,7 @@ function rectBorder() {
     "width": "890"
   });
   $(".conpt-btn").css({
-    "width": "270"
+    "height": "130"
   });
   // 插入html
   $(".conpt-box").html($(".b4-tmpl").html());
@@ -118,6 +116,7 @@ function rectBorder() {
 }
 /* b1b5 function */
 function midRect() {
+  caninit();
   cleanRect();
   ctx.beginPath();
   ctx.rect(180, 40, 590, 328);
@@ -134,6 +133,7 @@ function midRect() {
 }
 
 function smallRect(x, y) {
+  caninit();
   $(".mainBox").css({
     "display": "block"
   });
@@ -142,7 +142,8 @@ function smallRect(x, y) {
   ctx.rect(-14 + x, -14 + y, 339, 328);
   ctx.stroke();
   $(".controlPoint").css({
-    "width": "270","height": "408"
+    "width": "270",
+    "height": "408"
   });
   $(".conpt-btn").css({
     "width": "270"
@@ -153,6 +154,7 @@ function smallRect(x, y) {
 }
 // 地埋灯
 function cirRect(x, y) {
+  caninit();
   console.log("ok");
   cleanRect();
   $(".mainBox").css({
@@ -163,18 +165,19 @@ function cirRect(x, y) {
   // var posCircle = (2 * (Math.sqrt(311 * 311 / 4 + 150 * 150) + 54) - 408) / 2;
   ctx.beginPath();
   /* 由于圆形经过缩放，所以设置一个缩放系数k */
-  var k=0.85;
-  ctx.scale(k,k);
+  var k = 0.85;
+  ctx.scale(k, k);
   ctx.arc(
-    480/k, 204/k,
+    480 / k, 204 / k,
     Math.sqrt(
       (311 * 311 / 4 + 150 * 150)
     ) + 14,
     0, 2 * Math.PI, false);
   ctx.stroke();
-  ctx.scale(1/k,1/k);
+  ctx.scale(1 / k, 1 / k);
   $(".controlPoint").css({
-    "width": "270","height": "408"
+    "width": "270",
+    "height": "408"
   });
   $(".conpt-btn").css({
     "width": "270"
@@ -184,22 +187,26 @@ function cirRect(x, y) {
   showBtn();
 }
 /* 缩放后的b1标志 */
-function scaleB1(a,b) {
+function scaleB1(a, b) {
   var k = 0.8;
-  ctx.scale(k,k);
-  signB1(a/k,b/k);
-  ctx.scale(1/k,1/k);
+  ctx.scale(k, k);
+  signB1(a / k, b / k);
+  ctx.scale(1 / k, 1 / k);
 }
 /* 缩放后的b2标志 */
 function scaleB2(x, y, mirror) {
   console.log("testB2");
   var k = 0.8;
   ctx.scale(k, k);
-  signB2(x/k, y/k, mirror/k);
-  ctx.scale(1/k, 1/k);
+  signB2(x / k, y / k, mirror / k);
+  ctx.scale(1 / k, 1 / k);
+}
+
+function caninit() {
+  document.getElementById("myCanvas").width = 970;
 }
 /* double B1B5 sign */
-function double(){
+function double() {
   document.getElementById("myCanvas").width = 1260;
   cleanRect(5, 5, 960, 400);
   $(".mainBox").css({
@@ -213,7 +220,8 @@ function double(){
   // 插入html
   $(".conpt-box").html($(".doubleb1b5-tmpl").html());
   $(".controlPoint, .conpt-box").css({
-    "width": "1260","height": "408"
+    "width": "1260",
+    "height": "408"
   });
 
   $(".conpt-btn").css({
@@ -290,3 +298,14 @@ function sortCharacter(a, b) {
     return 0;
   }
 }
+$("#colorBtn").on("click",function() {
+  var colorBtnHtml = $("#colorBtn").text();
+  if (colorBtnHtml==="单色") {
+    $("#colorBtn").text("双色");
+    check("multi");
+    console.log("ok");
+  }else if (colorBtnHtml==="双色") {
+    $("#colorBtn").text("单色");
+    check("false");
+  }
+});

@@ -223,7 +223,7 @@ function strangeShape() {
 }
 
 function cleanRect(x, y, width, height) {
-  ctx.clearRect(5, 5, 960, 400);
+  ctx.clearRect(5, 5, 1260, 400);
 }
 console.log(document.getElementById("single").checked);
 console.log(document.getElementById("multi").checked);
