@@ -8,7 +8,8 @@ This is used to point out the point which is out of the standard of the Identifi
 1. 完成了各项基本功能
 2. 双色灯引线方法可以切换
 3. 完善了对特殊形状的灯具的支持
-4. 处于性能考虑，不加入过于复杂的动画，下一步完善更为复杂的引线方法
+4. 处于性能考虑，不加入过于复杂的动画，下一步完善更为复杂的引线方法  
+
 ------
 ##### 2016/4/15 update
 - [x] 用canvas实现各种图案
