@@ -5,14 +5,14 @@ This is used to point out the point which is out of the standard of the Identifi
 
 ####NOTE  
 
-##### 2016/3/30 update
+##### 2016/4/15 update
 - [x] 用canvas实现各种图案
 - [x] 学习jquery的基本用法
 - [x] 学会使用事件委托
-- [x] 使用webpack打包（为了调试方便这个版本没使用）
-- [ ] 完善双色灯功能（已经完成功能，带这个礼拜补全代码）
+- [x] 使用webpack打包
+- [ ] 完善双色灯功能
 - [ ] 对代码的命名空间和组织层次进行整理
-- [ ] input输入框加入回车监听（明后天完善）
+- [ ] input输入框加入回车监听
 - [ ] 完成一个更复杂的引线方法
 - [ ] 在轮播头图中使用动画,如：放大、闪烁
 - [ ] 尝试换一种方法给btn和input添加方法，精炼代码

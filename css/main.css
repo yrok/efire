@@ -1,8 +1,12 @@
 /*css reset*/
-div,button,li,input,span{
-  margin: 0;padding: 0;
+
+div, button, li, input, span {
+  margin: 0;
+  padding: 0;
 }
+
 /* float */
+
 .fl {
   float: left;
 }
@@ -12,80 +16,118 @@ div,button,li,input,span{
 .hide {
   display: none;
 }
+
 /**/
 
-body h1{
-    text-align: center;
+body h1 {
+  text-align: center;
 }
+
 /*title*/
+
 h1 {
-    color: black;
-    font-weight: bolder;
-    font-family: 黑体;
-    color: #1b4718;
+  color: black;
+  font-weight: bolder;
+  font-family: 黑体;
+  color: #1b4718;
 }
 .mainBox {
   display: none;
 }
+
 /*canvas遮罩和canvas盒子*/
+
 .canBox {
   position: relative;
-
 }
+
 /*canvas遮罩， */
+
 .controlPoint {
   left: 50%;
+  -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   position: absolute;
   width: 970px;
   height: 410px;
   z-index: 10;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
   flex-flow: row wrap;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
   align-items: stretch;
-
 }
+
 /*控制点容器*/
-.conpt-box{
-  margin: auto;
+
+.conpt-box {
+  margin: 0 auto;
   width: 890px;
   height: 280px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
   flex-flow: row wrap;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
   align-items: stretch;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
   justify-content: center;
   /*background-color: blue;*/
 }
+
 /*控制点*/
+
 .conpt-btn {
   margin: auto auto;
-  color:rgba(5, 5, 5, 0.2);;
+  color: rgba(5, 5, 5, 0.2);
   font-size: 30px;
   font-weight: bolder;
-  width:270px;
-  height:80px;
+  width: 270px;
+  height: 130px;
   z-index: 20;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
   align-items: center;
-  justify-content:center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   vertical-align: middle;
-  /*background-color: yellow;*/
+  /*background-color: rgba(255, 255, 0, 0.5);;*/
 }
-.shape-btn{
+.shape-btn {
   dispaly: table-cell;
   vertical-align: middle;
   line-height: 20px;
   cursor: pointer;
 }
-.shape-btn button,input,textarea, .confirm-btn {
+.shape-btn button, input, textarea, .confirm-btn {
   display: none;
 }
-.plus-sign{
+.plus-sign {
   line-height: 20px;
 }
-.conpt-btn input,textarea {
+.conpt-btn input, textarea {
   display: none;
-  width:70px;
+  width: 70px;
   height: 20px;
   margin-bottom: 0;
   /*background-color: red;*/
@@ -93,43 +135,48 @@ h1 {
 .conpt-btn button {
   width: 40px;
   height: 30px;
-
   /*background-color: green;*/
 }
 .btn-group {
   left: 50%;
+  -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   top: 420px;
   margin-bottom: 10px;
 }
-
-.conpt-btn:hover{
-  color:rgba(5, 5, 5, 1);;
+.conpt-btn:hover {
+  color: rgba(5, 5, 5, 1);
+  ;
 }
+
 /*.conpt1{
     background-color: yellow;
 }*/
-.btn-box{
+
+.btn-box {
   text-align: center;
   margin-top: 450px;
 }
 
-
 /*canvas*/
+
 #myCanvas {
   left: 50%;
+  -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   z-index: 0;
   position: absolute;
 }
-
-.btm-box{
+.btm-box {
   text-align: center;
   margin-top: 420px;
   display: inline-block;
   z-index: 10;
 }
+
 /* ------------ */
+
+
 /*.btn-box {
     margin-top: 20px;
 }
@@ -194,4 +241,6 @@ li:nth-child(3) {
   line-height: 42px;
   display: inline-block;
 }*/
+
+
 /*浮动*/
