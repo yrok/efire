@@ -7,6 +7,7 @@ This is used to point out the point which is out of the standard of the Identifi
 #### 2016/12/14
 ##### 重构目标
   > 经过实践发现，虽然上一个版本能解决标注问题，但是对于奇葩部局和奇葩图形并没有很好的解决，canvas在编辑上没有svg方便。所以决定用svg重构。
+  
 - [ ] 1. 全面SVG化
 - [ ] 2. 图像双击改变状态：class[active],纸偶可移动，变换方向，变换大小，删除
 - [ ] 3. input[tyep=text]可修改，双击修改
